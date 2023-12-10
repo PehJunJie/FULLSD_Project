@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameVerse.Server", "GameVerse\Server\GameVerse.Server.csproj", "{DFA9730D-857D-487E-B4D6-D3884A94225C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameVerse.Server", "GameVerse\Server\GameVerse.Server.csproj", "{DFA9730D-857D-487E-B4D6-D3884A94225C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameVerse.Client", "GameVerse\Client\GameVerse.Client.csproj", "{C811A274-B11E-42BD-B587-F4E500B4A84D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameVerse.Client", "GameVerse\Client\GameVerse.Client.csproj", "{C811A274-B11E-42BD-B587-F4E500B4A84D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameVerse.Shared", "GameVerse\Shared\GameVerse.Shared.csproj", "{E5C26EE1-8641-4040-9D7B-94384E8B0F38}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameVerse.Shared", "GameVerse\Shared\GameVerse.Shared.csproj", "{E5C26EE1-8641-4040-9D7B-94384E8B0F38}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
