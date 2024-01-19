@@ -8,14 +8,14 @@
 }
 
 .navbar-brand {
-    font-size: 1.1rem;
+    font-size: 1.2rem;
 }
 
 .oi {
     width: 2rem;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     vertical-align: text-top;
-    top: -2px;
+    top: -1px;
 }
 
 .nav-item {

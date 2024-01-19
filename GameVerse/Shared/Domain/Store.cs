@@ -8,8 +8,8 @@ namespace GameVerse.Shared.Domain
 {
     public class Store : BaseDomainModel
     {
-        public int OriginalPrice { get; set; }
-        public int DiscountedPrice { get; set; }
+        public double OriginalPrice { get; set; }
+        public double DiscountedPrice { get; set; }
         public Boolean Subscription { get; set; }
         public string? AvailabilityStatus { get; set; }
         public int? GameId { get; set; }

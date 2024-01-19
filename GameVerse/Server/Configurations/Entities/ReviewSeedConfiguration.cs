@@ -12,8 +12,13 @@ namespace GameVerse.Server.Configurations.Entities
                 new Review
                 {
                     Id = 1,
-                    ReviewRating = 7, // have another 'Rating' in Game entity (int) 
+
+                    ReviewRating = 8.0, 
                     Text = "The game provides a lot of freebies, leveling up every quickly without spending money.",
+                    ReviewDate = new DateTime(2024, 1, 2), 
+                    ConsumerId = 1,
+                    GameId = 1,
+
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
@@ -22,8 +27,13 @@ namespace GameVerse.Server.Configurations.Entities
                 new Review
                 {
                     Id = 2,
-                    ReviewRating = 8.5,
-                    Text = "I initially have no high expectation for the game but it turns out the game is pretty good.",
+
+                    ReviewRating = 4.5,
+                    Text = "I the game turns out to be pretty bad with frequent bugs.",
+                    ReviewDate = new DateTime(2023, 11, 13),
+                    ConsumerId = 2,
+                    GameId = 2,
+
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",

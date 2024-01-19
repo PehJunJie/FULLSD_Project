@@ -15,6 +15,5 @@ namespace GameVerse.Shared.Domain
         public virtual List<Wishlist>? Wishlists { get; set; }
         public virtual List<Review>? Reviews { get; set; }
         public virtual List<Order>? Orders { get; set; }
-        public virtual List<Payment>? Payments { get; set; }
     }
 }

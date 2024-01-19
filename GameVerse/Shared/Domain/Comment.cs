@@ -10,7 +10,7 @@ namespace GameVerse.Shared.Domain
     {
         public string? Text { get; set; }
         public DateTime CommentDate { get; set; }
-        public int? ConsumerID { get; set; }
+        public int? ConsumerId { get; set; }
         public virtual Consumer? Consumer { get; set; }
         public int? CommunityId { get; set; }
         public virtual Community? Community { get; set; }

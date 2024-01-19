@@ -11,7 +11,7 @@ namespace GameVerse.Shared.Domain
     {
         public DateTime OrderDate { get; set; }
         public string? OrderedGames { get; set; }
-        public int AmountPaid { get; set; }
+        public double AmountPaid { get; set; }
         public int? ConsumerId { get; set; }
         public virtual Consumer? Consumer { get; set; }
         public int? PaymentId { get; set; }

@@ -1,37 +1,34 @@
 ﻿using GameVerse.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Drawing;
 
 namespace GameVerse.Server.Configurations.Entities
 {
-    public class CommentSeedConfiguration : IEntityTypeConfiguration<Comment>
+    public class CommunitySeedConfiguration : IEntityTypeConfiguration<Community>
     {
-        public void Configure(EntityTypeBuilder<Comment> builder)
+        public void Configure(EntityTypeBuilder<Community> builder)
         {
             builder.HasData(
-                new Comment
+                new Community
                 {
                     Id = 1,
-
-                    Text = "I love playing Honkai: Star Rail!",
-                    CommentDate = new DateTime(2024, 1, 16),
-                    ConsumerId = 1,
-                    CommunityId = 1,
+                    
+                    Name = "Star Rail Official",
+                    Description = "Join us for all things Star Rail!",
+                    MemberCount = 1530524,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
-                new Comment
+                new Community
                 {
                     Id = 2,
 
-                    Text = "LE SSERAFIM x Overwatch2 collab is sick!",
-                    CommentDate = new DateTime(2023, 10, 27),
-                    ConsumerId = 2,
-                    CommunityId = 2,
+                    Name = "Overwatch Community",
+                    Description = "Discuss all things Overwatch.",
+                    MemberCount = 127402,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,

@@ -1,37 +1,38 @@
 ﻿using GameVerse.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Drawing;
 
 namespace GameVerse.Server.Configurations.Entities
 {
-    public class CommentSeedConfiguration : IEntityTypeConfiguration<Comment>
+    public class OrderSeedConfiguration : IEntityTypeConfiguration<Order>
     {
-        public void Configure(EntityTypeBuilder<Comment> builder)
+        public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.HasData(
-                new Comment
+                new Order
                 {
                     Id = 1,
 
-                    Text = "I love playing Honkai: Star Rail!",
-                    CommentDate = new DateTime(2024, 1, 16),
+                    OrderDate = new DateTime(2024, 1, 18),
+                    OrderedGames = "Forza Horizon 5, NBA 2K24",
+                    AmountPaid = 100.50, 
                     ConsumerId = 1,
-                    CommunityId = 1,
+                    PaymentId = 1,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
-                new Comment
+                new Order
                 {
                     Id = 2,
 
-                    Text = "LE SSERAFIM x Overwatch2 collab is sick!",
-                    CommentDate = new DateTime(2023, 10, 27),
+                    OrderDate = DateTime.Now,
+                    OrderedGames = "Borderslands 3, BOKURA",
+                    AmountPaid = 16.30,
                     ConsumerId = 2,
-                    CommunityId = 2,
+                    PaymentId = 2,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,

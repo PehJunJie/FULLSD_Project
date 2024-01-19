@@ -34,29 +34,29 @@ namespace GameVerse.Server.Data
 
             builder.ApplyConfiguration(new CommentSeedConfiguration());
 
-            //builder.ApplyConfiguration(new CommunitySeedConfiguration());
+            builder.ApplyConfiguration(new CommunitySeedConfiguration());
 
-            //builder.ApplyConfiguration(new ConsumerSeedConfiguration());
+            builder.ApplyConfiguration(new ConsumerSeedConfiguration());
 
-            //builder.ApplyConfiguration(new GameSeedConfiguration());
+            builder.ApplyConfiguration(new GameSeedConfiguration());
 
-            //builder.ApplyConfiguration(new OrderSeedConfiguration());
+            builder.ApplyConfiguration(new OrderSeedConfiguration());
 
-            //builder.ApplyConfiguration(new PaymentRoleSeedConfiguration());
+            builder.ApplyConfiguration(new PaymentSeedConfiguration());
 
-            //builder.ApplyConfiguration(new RecommendationSeedConfiguration());
+            builder.ApplyConfiguration(new RecommendationSeedConfiguration());
 
             builder.ApplyConfiguration(new ReviewSeedConfiguration());
 
-            //builder.ApplyConfiguration(new StoreSeedConfiguration());
+            builder.ApplyConfiguration(new StoreSeedConfiguration());
 
-            //builder.ApplyConfiguration(new WishlistRoleSeedConfiguration());
+            builder.ApplyConfiguration(new WishlistSeedConfiguration());
 
-            //builder.ApplyConfiguration(new RoleSeedConfiguration());
+            builder.ApplyConfiguration(new RoleSeedConfiguration());
 
-            //builder.ApplyConfiguration(new UserSeedConfiguration());
+            builder.ApplyConfiguration(new UserSeedConfiguration());
 
-            //builder.ApplyConfiguration(new UserRoleSeedConfiguration());
+            builder.ApplyConfiguration(new UserRoleSeedConfiguration());
         }
     }
 }

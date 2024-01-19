@@ -1,37 +1,32 @@
 ﻿using GameVerse.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Drawing;
 
 namespace GameVerse.Server.Configurations.Entities
 {
-    public class CommentSeedConfiguration : IEntityTypeConfiguration<Comment>
+    public class WishlistSeedConfiguration : IEntityTypeConfiguration<Wishlist>
     {
-        public void Configure(EntityTypeBuilder<Comment> builder)
+        public void Configure(EntityTypeBuilder<Wishlist> builder)
         {
             builder.HasData(
-                new Comment
+                new Wishlist
                 {
                     Id = 1,
 
-                    Text = "I love playing Honkai: Star Rail!",
-                    CommentDate = new DateTime(2024, 1, 16),
+                    Games = "Mario vs. Donkey Kong, Open Roads",
                     ConsumerId = 1,
-                    CommunityId = 1,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
-                new Comment
+                new Wishlist
                 {
                     Id = 2,
 
-                    Text = "LE SSERAFIM x Overwatch2 collab is sick!",
-                    CommentDate = new DateTime(2023, 10, 27),
+                    Games = "Hyper Light Breaker",
                     ConsumerId = 2,
-                    CommunityId = 2,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,

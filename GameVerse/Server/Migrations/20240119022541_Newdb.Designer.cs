@@ -12,15 +12,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameVerse.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240117132205_newdb")]
-    partial class newdb
+    [Migration("20240119022541_Newdb")]
+    partial class Newdb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.14")
+                .HasAnnotation("ProductVersion", "7.0.15")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -235,6 +235,26 @@ namespace GameVerse.Server.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "ce94c078-30e0-4ab7-a3e7-4604dcc843a7",
+                            Email = "admin@localhost.com",
+                            EmailConfirmed = false,
+                            FirstName = "Admin",
+                            LastName = "User",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                            NormalizedUserName = "ADMIN",
+                            PasswordHash = "AQAAAAIAAYagAAAAED4XIjYEQ0H3SxZnTqLj0D4JCO/n87fca09P/O9+/OoJ7eAqI9zMPsh7jChwErRDEA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "c7da545c-a5f1-492a-b385-29201473279f",
+                            TwoFactorEnabled = false,
+                            UserName = "admin"
+                        });
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Comment", b =>
@@ -251,7 +271,7 @@ namespace GameVerse.Server.Migrations
                     b.Property<int?>("CommunityId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ConsumerID")
+                    b.Property<int?>("ConsumerId")
                         .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
@@ -273,7 +293,7 @@ namespace GameVerse.Server.Migrations
 
                     b.HasIndex("CommunityId");
 
-                    b.HasIndex("ConsumerID");
+                    b.HasIndex("ConsumerId");
 
                     b.ToTable("Comments");
 
@@ -282,19 +302,23 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 1,
                             CommentDate = new DateTime(2024, 1, 16, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CommunityId = 1,
+                            ConsumerId = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 17, 21, 22, 5, 315, DateTimeKind.Local).AddTicks(6285),
-                            DateUpdated = new DateTime(2024, 1, 17, 21, 22, 5, 315, DateTimeKind.Local).AddTicks(6300),
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(3433),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(3447),
                             Text = "I love playing Honkai: Star Rail!",
                             UpdatedBy = "System"
                         },
                         new
                         {
                             Id = 2,
-                            CommentDate = new DateTime(2024, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CommentDate = new DateTime(2023, 10, 27, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CommunityId = 2,
+                            ConsumerId = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 17, 21, 22, 5, 315, DateTimeKind.Local).AddTicks(6303),
-                            DateUpdated = new DateTime(2024, 1, 17, 21, 22, 5, 315, DateTimeKind.Local).AddTicks(6304),
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(3451),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(3452),
                             Text = "LE SSERAFIM x Overwatch2 collab is sick!",
                             UpdatedBy = "System"
                         });
@@ -332,6 +356,30 @@ namespace GameVerse.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Communities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4094),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4097),
+                            Description = "Join us for all things Star Rail!",
+                            MemberCount = 1530524,
+                            Name = "Star Rail Official",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4100),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4101),
+                            Description = "Discuss all things Overwatch.",
+                            MemberCount = 127402,
+                            Name = "Overwatch Community",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Consumer", b =>
@@ -369,6 +417,32 @@ namespace GameVerse.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Consumers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Age = 25,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4542),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4547),
+                            EmailAddress = "johnsmith@gmail.com",
+                            Name = "John Smith",
+                            UpdatedBy = "System",
+                            UserName = "jsmithy"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Age = 22,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4549),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4550),
+                            EmailAddress = "marryjones@gmail.com",
+                            Name = "Marry Jones",
+                            UpdatedBy = "System",
+                            UserName = "joneygirl"
+                        });
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Game", b =>
@@ -378,6 +452,9 @@ namespace GameVerse.Server.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ContentRating")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -403,6 +480,9 @@ namespace GameVerse.Server.Migrations
                     b.Property<string>("Platform")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Publisher")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime>("ReleaseDate")
                         .HasColumnType("datetime2");
 
@@ -415,6 +495,59 @@ namespace GameVerse.Server.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Games");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContentRating = "E10+",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5004),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5005),
+                            Description = "A sequel to The Legend of Zelda: Breath of the Wild. The game lets you explore a large and diverse world of Hyrule and its mysterious islands. You can choose your own adventure and use Link’s new abilities to fight back against the malevolent forces.",
+                            Developer = "Nintendo",
+                            Genre = "Open-World Action",
+                            OverallRating = 8.4000000000000004,
+                            Platform = "Nintendo Switch",
+                            Publisher = "Nintendo",
+                            ReleaseDate = new DateTime(2023, 5, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "The Legend of Zelda: Tears of the Kingdom",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContentRating = "T",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5009),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5010),
+                            Description = "A space sci-fi role-playing game that combines myths and legends with exploration and combat. Players will board the Astral Express and visit different worlds, meet companions, and resolving [Stellaron]-related conflicts. The game has a simple and strategic combat system and large maps with puzzles and surprises.",
+                            Developer = "Cognosphere",
+                            Genre = "Role-Playing",
+                            OverallRating = 6.5,
+                            Platform = "PC, iOS, Android, PlayStation 5",
+                            Publisher = "miHoYo",
+                            ReleaseDate = new DateTime(2023, 4, 26, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Honkai: Star Rail",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ContentRating = "E",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5014),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5015),
+                            Description = "Out-build the competition in the all-new career. Race your friends in adjudicated multiplayer events. Compete in over 500 cars on world-famous tracks with cutting edge AI, advanced physics, and tire and fuel strategy.",
+                            Developer = "Turn 10",
+                            Genre = "Racing Sim",
+                            OverallRating = 7.5,
+                            Platform = "PC, Xbox Series X",
+                            Publisher = "Xbox Game Studios",
+                            ReleaseDate = new DateTime(2023, 10, 10, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Title = "Forza Motorsport Standard Edition",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Order", b =>
@@ -425,8 +558,8 @@ namespace GameVerse.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AmountPaid")
-                        .HasColumnType("int");
+                    b.Property<double>("AmountPaid")
+                        .HasColumnType("float");
 
                     b.Property<int?>("ConsumerId")
                         .HasColumnType("int");
@@ -459,6 +592,34 @@ namespace GameVerse.Server.Migrations
                     b.HasIndex("PaymentId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AmountPaid = 100.5,
+                            ConsumerId = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5464),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5468),
+                            OrderDate = new DateTime(2024, 1, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            OrderedGames = "Forza Horizon 5, NBA 2K24",
+                            PaymentId = 1,
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AmountPaid = 16.300000000000001,
+                            ConsumerId = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5472),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5472),
+                            OrderDate = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5470),
+                            OrderedGames = "Borderslands 3, BOKURA",
+                            PaymentId = 2,
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Payment", b =>
@@ -468,9 +629,6 @@ namespace GameVerse.Server.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("ConsumerId")
-                        .HasColumnType("int");
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -489,9 +647,45 @@ namespace GameVerse.Server.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConsumerId");
-
                     b.ToTable("Payments");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5965),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5968),
+                            Method = "DBS/POSB",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5970),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5971),
+                            Method = "OCBC",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5973),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5974),
+                            Method = "UOB",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5975),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5976),
+                            Method = "Citybank",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Recommendation", b =>
@@ -525,6 +719,38 @@ namespace GameVerse.Server.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("Recommendations");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6352),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6354),
+                            GameId = 1,
+                            Rank = 1,
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6356),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6357),
+                            GameId = 2,
+                            Rank = 2,
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6359),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6360),
+                            GameId = 3,
+                            Rank = 3,
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Review", b =>
@@ -574,23 +800,27 @@ namespace GameVerse.Server.Migrations
                         new
                         {
                             Id = 1,
+                            ConsumerId = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 17, 21, 22, 5, 315, DateTimeKind.Local).AddTicks(6629),
-                            DateUpdated = new DateTime(2024, 1, 17, 21, 22, 5, 315, DateTimeKind.Local).AddTicks(6629),
-                            ReviewDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReviewRating = 7.0,
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6761),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6763),
+                            GameId = 1,
+                            ReviewDate = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReviewRating = 8.0,
                             Text = "The game provides a lot of freebies, leveling up every quickly without spending money.",
                             UpdatedBy = "System"
                         },
                         new
                         {
                             Id = 2,
+                            ConsumerId = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 17, 21, 22, 5, 315, DateTimeKind.Local).AddTicks(6632),
-                            DateUpdated = new DateTime(2024, 1, 17, 21, 22, 5, 315, DateTimeKind.Local).AddTicks(6632),
-                            ReviewDate = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            ReviewRating = 8.5,
-                            Text = "I initially have no high expectation for the game but it turns out the game is pretty good.",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6767),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6768),
+                            GameId = 2,
+                            ReviewDate = new DateTime(2023, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            ReviewRating = 4.5,
+                            Text = "I the game turns out to be pretty bad with frequent bugs.",
                             UpdatedBy = "System"
                         });
                 });
@@ -615,14 +845,14 @@ namespace GameVerse.Server.Migrations
                     b.Property<DateTime>("DateUpdated")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("DiscountedPrice")
-                        .HasColumnType("int");
+                    b.Property<double>("DiscountedPrice")
+                        .HasColumnType("float");
 
                     b.Property<int?>("GameId")
                         .HasColumnType("int");
 
-                    b.Property<int>("OriginalPrice")
-                        .HasColumnType("int");
+                    b.Property<double>("OriginalPrice")
+                        .HasColumnType("float");
 
                     b.Property<bool>("Subscription")
                         .HasColumnType("bit");
@@ -635,6 +865,34 @@ namespace GameVerse.Server.Migrations
                     b.HasIndex("GameId");
 
                     b.ToTable("Stores");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AvailabilityStatus = "Not Available",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7096),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7097),
+                            DiscountedPrice = 57.0,
+                            GameId = 1,
+                            OriginalPrice = 69.989999999999995,
+                            Subscription = true,
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AvailabilityStatus = "Available",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7101),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7101),
+                            DiscountedPrice = 85.900000000000006,
+                            GameId = 3,
+                            OriginalPrice = 99.900000000000006,
+                            Subscription = false,
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Wishlist", b =>
@@ -668,6 +926,28 @@ namespace GameVerse.Server.Migrations
                     b.HasIndex("ConsumerId");
 
                     b.ToTable("Wishlists");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ConsumerId = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7316),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7317),
+                            Games = "Mario vs. Donkey Kong, Open Roads",
+                            UpdatedBy = "System"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ConsumerId = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7318),
+                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7319),
+                            Games = "Hyper Light Breaker",
+                            UpdatedBy = "System"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -695,6 +975,20 @@ namespace GameVerse.Server.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -784,6 +1078,13 @@ namespace GameVerse.Server.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "3781efa7-66dc-47f0-860f-e506d04102e4",
+                            RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -815,7 +1116,7 @@ namespace GameVerse.Server.Migrations
 
                     b.HasOne("GameVerse.Shared.Domain.Consumer", "Consumer")
                         .WithMany()
-                        .HasForeignKey("ConsumerID");
+                        .HasForeignKey("ConsumerId");
 
                     b.Navigation("Community");
 
@@ -835,13 +1136,6 @@ namespace GameVerse.Server.Migrations
                     b.Navigation("Consumer");
 
                     b.Navigation("Payment");
-                });
-
-            modelBuilder.Entity("GameVerse.Shared.Domain.Payment", b =>
-                {
-                    b.HasOne("GameVerse.Shared.Domain.Consumer", null)
-                        .WithMany("Payments")
-                        .HasForeignKey("ConsumerId");
                 });
 
             modelBuilder.Entity("GameVerse.Shared.Domain.Recommendation", b =>
@@ -940,8 +1234,6 @@ namespace GameVerse.Server.Migrations
             modelBuilder.Entity("GameVerse.Shared.Domain.Consumer", b =>
                 {
                     b.Navigation("Orders");
-
-                    b.Navigation("Payments");
 
                     b.Navigation("Reviews");
 

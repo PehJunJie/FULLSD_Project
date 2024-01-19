@@ -1,37 +1,38 @@
 ﻿using GameVerse.Shared.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System.Drawing;
 
 namespace GameVerse.Server.Configurations.Entities
 {
-    public class CommentSeedConfiguration : IEntityTypeConfiguration<Comment>
+    public class StoreSeedConfiguration : IEntityTypeConfiguration<Store>
     {
-        public void Configure(EntityTypeBuilder<Comment> builder)
+        public void Configure(EntityTypeBuilder<Store> builder)
         {
             builder.HasData(
-                new Comment
+                new Store
                 {
                     Id = 1,
 
-                    Text = "I love playing Honkai: Star Rail!",
-                    CommentDate = new DateTime(2024, 1, 16),
-                    ConsumerId = 1,
-                    CommunityId = 1,
+                    OriginalPrice = 69.99,
+                    DiscountedPrice = 57.00,
+                    Subscription = true,
+                    AvailabilityStatus = "Not Available",
+                    GameId = 1,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
-                new Comment
+                new Store
                 {
                     Id = 2,
 
-                    Text = "LE SSERAFIM x Overwatch2 collab is sick!",
-                    CommentDate = new DateTime(2023, 10, 27),
-                    ConsumerId = 2,
-                    CommunityId = 2,
+                    OriginalPrice = 99.90, 
+                    DiscountedPrice = 85.90,
+                    Subscription = false,
+                    AvailabilityStatus = "Available",
+                    GameId = 3,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
