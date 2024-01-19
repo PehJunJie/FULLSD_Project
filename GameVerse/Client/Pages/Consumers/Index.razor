@@ -1,0 +1,83 @@
+﻿@page "/consumers/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Game Consumers</h3>
+<br />
+
+@if (Consumers == null)
+{
+    <div class="alert alert-info">Loading Consumers...</div>
+}
+else
+{
+    <table class="table table-responsive" id="bookingsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>User Name</th>
+                <th>Email Address</th>
+                <th>Age</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var consumer in Consumers)
+            {
+                <tr>
+                    <td>@consumer.Name</td>
+                    <td>@consumer.UserName</td>
+                    <td>@consumer.EmailAddress</td>
+                    <td>@consumer.Age</td>
+                    <td>
+                        <a href="/consumers/view/@consumer.Id" class="btn btn-primary">
+                            <span class="oi oi-eye"></span>
+                        </a>
+                        <a href="/consumers/edit/@consumer.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(consumer.Id))">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Consumer>? Consumers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        // _interceptor.MonitorEvent();
+        Consumers = await _client.GetFromJsonAsync<List<Consumer>>($"{Endpoints.ConsumersEndpoint}");
+    }
+
+    async Task Delete(int consumerId)
+    {
+        if (Consumers != null)
+        {
+            var consumer = Consumers.First(q => q.Id == consumerId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {consumer.Name}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.ConsumersEndpoint}/{consumerId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+
+    // protected async override Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    // }
+
+    // // public void Dispose()
+    // // {
+    // //     _interceptor.DisposeEvent();
+    // //     js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    // // }
+}

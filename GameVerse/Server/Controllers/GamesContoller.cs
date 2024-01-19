@@ -13,52 +13,52 @@ namespace GameVerse.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class WishlistsController : ControllerBase
+    public class GamesController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
 
-        public WishlistsController(IUnitOfWork unitOfWork)
+        public GamesController(IUnitOfWork unitOfWork)
         {
             _unitOfWork = unitOfWork;
         }
 
-        // GET: api/Wishlists
+        // GET: api/Games
         [HttpGet]
-        public async Task<IActionResult> GetWishlists()
+        public async Task<IActionResult> GetGames()
         {
-            var wishlists = await _unitOfWork.Wishlists.GetAll(includes: q => q.Include(x =>x.Consumer));
+            var games = await _unitOfWork.Games.GetAll();
 
-            if (wishlists == null)
+            if (games == null)
             {
                 return NotFound();
             }
-            return Ok(wishlists);
+            return Ok(games);
         }
 
-        // GET: api/Wishlists/5
+        // GET: api/Games/5
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetWishlist(int id)
+        public async Task<IActionResult> GetGame(int id)
         {
-            var wishlist = await _unitOfWork.Wishlists.Get(q => q.Id == id);
+            var game = await _unitOfWork.Games.Get(q => q.Id == id);
 
-            if (wishlist == null)
+            if (game == null)
             {
                 return NotFound();
             }
-            return Ok(wishlist);
+            return Ok(game);
         }
 
-        // PUT: api/Wishlists/5
+        // PUT: api/Games/5
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutWishlist(int id, Wishlist wishlist)
+        public async Task<IActionResult> PutGame(int id, Game game)
         {
-            if (id != wishlist.Id)
+            if (id != game.Id)
             {
                 return BadRequest();
             }
 
-            _unitOfWork.Wishlists.Update(wishlist);
+            _unitOfWork.Games.Update(game);
 
             try
             {
@@ -66,7 +66,7 @@ namespace GameVerse.Server.Controllers
             }
             catch (DbUpdateConcurrencyException)
             {
-                if (!await WishlistExists(id))
+                if (!await GameExists(id))
                 {
                     return NotFound();
                 }
@@ -79,37 +79,37 @@ namespace GameVerse.Server.Controllers
             return NoContent();
         }
 
-        // POST: api/Wishlists
+        // POST: api/Games
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<Wishlist>> PostWishlist(Wishlist wishlist)
+        public async Task<ActionResult<Game>> PostGame(Game game)
         {
-            await _unitOfWork.Wishlists.Insert(wishlist);
+            await _unitOfWork.Games.Insert(game);
             await _unitOfWork.Save(HttpContext);
 
-            return CreatedAtAction("GetWishlist", new { id = wishlist.Id }, wishlist);
+            return CreatedAtAction("GetGame", new { id = game.Id }, game);
         }
 
-        // DELETE: api/Wishlists/5
+        // DELETE: api/Games/5
         [HttpDelete("{id}")]
-        public async Task<IActionResult> DeleteWishlist(int id)
+        public async Task<IActionResult> DeleteGame(int id)
         {
-            var wishlist = await _unitOfWork.Wishlists.Get(q => q.Id == id);
-            if (wishlist == null)
+            var game = await _unitOfWork.Games.Get(q => q.Id == id);
+            if (game == null)
             {
                 return NotFound();
             }
 
-            await _unitOfWork.Wishlists.Delete(id);
+            await _unitOfWork.Games.Delete(id);
             await _unitOfWork.Save(HttpContext);
 
             return NoContent();
         }
 
-        private async Task<bool> WishlistExists(int id)
+        private async Task<bool> GameExists(int id)
         {
-            var wishlist = await _unitOfWork.Wishlists.Get(q => q.Id == id);
-            return wishlist != null;
+            var game = await _unitOfWork.Games.Get(q => q.Id == id);
+            return game != null;
         }
     }
 }

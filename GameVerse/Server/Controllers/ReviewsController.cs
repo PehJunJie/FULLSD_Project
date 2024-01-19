@@ -26,7 +26,7 @@ namespace GameVerse.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetReviews()
         {
-            var reviews = await _unitOfWork.Reviews.GetAll();
+            var reviews = await _unitOfWork.Reviews.GetAll(includes: q => q.Include(x => x.Consumer).Include(x => x.Game));
 
             if (reviews == null)
             {

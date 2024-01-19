@@ -11,13 +11,13 @@ namespace GameVerse.Server.Configurations.Entities
             builder.HasData(
                 new IdentityRole // Staff
                 {
-                    Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
+                    Id = "b2e72033-bcd7-4862-8f4b-e529252b0201",
                     Name = "Administrator",
                     NormalizedName = "ADMINISTRATOR" 
                 },
                 new IdentityRole // Consumer
                 {
-                    Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
+                    Id = "52791369-72d2-4745-aafa-77a4128b3b61",
                     Name = "User",
                     NormalizedName = "USER"
                 }

@@ -18,7 +18,7 @@ namespace GameVerse.Server.Configurations.Entities
                     Genre = "Open-World Action",
                     Developer = "Nintendo",
                     Publisher = "Nintendo",
-                    ReleaseDate = new DateTime(2023, 5, 12),
+                    ReleaseDate = new DateTime(2023, 05, 12),
                     Description = "A sequel to The Legend of Zelda: Breath of the Wild. " +
                     "The game lets you explore a large and diverse world of Hyrule and its mysterious islands. " +
                     "You can choose your own adventure and use Link’s new abilities to fight back against the malevolent forces.",
@@ -39,7 +39,7 @@ namespace GameVerse.Server.Configurations.Entities
                     Genre = "Role-Playing",
                     Developer = "Cognosphere",
                     Publisher = "miHoYo",
-                    ReleaseDate = new DateTime(2023, 4, 26),
+                    ReleaseDate = new DateTime(2023, 04, 26),
                     Description = "A space sci-fi role-playing game that combines myths and legends with exploration and combat. " +
                     "Players will board the Astral Express and visit different worlds, meet companions, and resolving [Stellaron]-related conflicts. " +
                     "The game has a simple and strategic combat system and large maps with puzzles and surprises.",

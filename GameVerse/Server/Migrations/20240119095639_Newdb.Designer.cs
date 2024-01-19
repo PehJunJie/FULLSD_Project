@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameVerse.Server.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240119022541_Newdb")]
+    [Migration("20240119095639_Newdb")]
     partial class Newdb
     {
         /// <inheritdoc />
@@ -239,21 +239,21 @@ namespace GameVerse.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
+                            Id = "f8f4089e-a9a4-440c-bdec-9a615bd72cbd",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "ce94c078-30e0-4ab7-a3e7-4604dcc843a7",
+                            ConcurrencyStamp = "a3d82623-348b-4577-a7b0-7316e93c4ed0",
                             Email = "admin@localhost.com",
                             EmailConfirmed = false,
                             FirstName = "Admin",
                             LastName = "User",
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAED4XIjYEQ0H3SxZnTqLj0D4JCO/n87fca09P/O9+/OoJ7eAqI9zMPsh7jChwErRDEA==",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEMIdf3DgQz8Ro3kJhHzgKHWdC7QWoS0VXJsaYLI5DgpcMktUFFCU+2v+PIe0zWSrHg==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "c7da545c-a5f1-492a-b385-29201473279f",
+                            SecurityStamp = "6a4cd631-f765-4080-940a-b1220e6a6e20",
                             TwoFactorEnabled = false,
-                            UserName = "admin"
+                            UserName = "admin@localhost"
                         });
                 });
 
@@ -305,8 +305,8 @@ namespace GameVerse.Server.Migrations
                             CommunityId = 1,
                             ConsumerId = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(3433),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(3447),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 165, DateTimeKind.Local).AddTicks(9697),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 165, DateTimeKind.Local).AddTicks(9711),
                             Text = "I love playing Honkai: Star Rail!",
                             UpdatedBy = "System"
                         },
@@ -317,8 +317,8 @@ namespace GameVerse.Server.Migrations
                             CommunityId = 2,
                             ConsumerId = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(3451),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(3452),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 165, DateTimeKind.Local).AddTicks(9716),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 165, DateTimeKind.Local).AddTicks(9717),
                             Text = "LE SSERAFIM x Overwatch2 collab is sick!",
                             UpdatedBy = "System"
                         });
@@ -362,8 +362,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4094),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4097),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(353),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(355),
                             Description = "Join us for all things Star Rail!",
                             MemberCount = 1530524,
                             Name = "Star Rail Official",
@@ -373,8 +373,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4100),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4101),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(358),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(358),
                             Description = "Discuss all things Overwatch.",
                             MemberCount = 127402,
                             Name = "Overwatch Community",
@@ -424,8 +424,8 @@ namespace GameVerse.Server.Migrations
                             Id = 1,
                             Age = 25,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4542),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4547),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(663),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(664),
                             EmailAddress = "johnsmith@gmail.com",
                             Name = "John Smith",
                             UpdatedBy = "System",
@@ -436,8 +436,8 @@ namespace GameVerse.Server.Migrations
                             Id = 2,
                             Age = 22,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4549),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(4550),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(667),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(668),
                             EmailAddress = "marryjones@gmail.com",
                             Name = "Marry Jones",
                             UpdatedBy = "System",
@@ -502,8 +502,8 @@ namespace GameVerse.Server.Migrations
                             Id = 1,
                             ContentRating = "E10+",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5004),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5005),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(962),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(964),
                             Description = "A sequel to The Legend of Zelda: Breath of the Wild. The game lets you explore a large and diverse world of Hyrule and its mysterious islands. You can choose your own adventure and use Link’s new abilities to fight back against the malevolent forces.",
                             Developer = "Nintendo",
                             Genre = "Open-World Action",
@@ -519,8 +519,8 @@ namespace GameVerse.Server.Migrations
                             Id = 2,
                             ContentRating = "T",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5009),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5010),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(968),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(969),
                             Description = "A space sci-fi role-playing game that combines myths and legends with exploration and combat. Players will board the Astral Express and visit different worlds, meet companions, and resolving [Stellaron]-related conflicts. The game has a simple and strategic combat system and large maps with puzzles and surprises.",
                             Developer = "Cognosphere",
                             Genre = "Role-Playing",
@@ -536,8 +536,8 @@ namespace GameVerse.Server.Migrations
                             Id = 3,
                             ContentRating = "E",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5014),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5015),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(972),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(973),
                             Description = "Out-build the competition in the all-new career. Race your friends in adjudicated multiplayer events. Compete in over 500 cars on world-famous tracks with cutting edge AI, advanced physics, and tire and fuel strategy.",
                             Developer = "Turn 10",
                             Genre = "Racing Sim",
@@ -600,9 +600,9 @@ namespace GameVerse.Server.Migrations
                             AmountPaid = 100.5,
                             ConsumerId = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5464),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5468),
-                            OrderDate = new DateTime(2024, 1, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1317),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1319),
+                            OrderDate = new DateTime(2024, 1, 17, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderedGames = "Forza Horizon 5, NBA 2K24",
                             PaymentId = 1,
                             UpdatedBy = "System"
@@ -613,9 +613,9 @@ namespace GameVerse.Server.Migrations
                             AmountPaid = 16.300000000000001,
                             ConsumerId = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5472),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5472),
-                            OrderDate = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5470),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1322),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1323),
+                            OrderDate = new DateTime(2024, 1, 18, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             OrderedGames = "Borderslands 3, BOKURA",
                             PaymentId = 2,
                             UpdatedBy = "System"
@@ -654,8 +654,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5965),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5968),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1630),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1632),
                             Method = "DBS/POSB",
                             UpdatedBy = "System"
                         },
@@ -663,8 +663,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5970),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5971),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1634),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1635),
                             Method = "OCBC",
                             UpdatedBy = "System"
                         },
@@ -672,8 +672,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5973),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5974),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1637),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1637),
                             Method = "UOB",
                             UpdatedBy = "System"
                         },
@@ -681,8 +681,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 4,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5975),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(5976),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1639),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1640),
                             Method = "Citybank",
                             UpdatedBy = "System"
                         });
@@ -725,8 +725,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6352),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6354),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1920),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1921),
                             GameId = 1,
                             Rank = 1,
                             UpdatedBy = "System"
@@ -735,8 +735,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6356),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6357),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1924),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1925),
                             GameId = 2,
                             Rank = 2,
                             UpdatedBy = "System"
@@ -745,8 +745,8 @@ namespace GameVerse.Server.Migrations
                         {
                             Id = 3,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6359),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6360),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1927),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(1927),
                             GameId = 3,
                             Rank = 3,
                             UpdatedBy = "System"
@@ -802,8 +802,8 @@ namespace GameVerse.Server.Migrations
                             Id = 1,
                             ConsumerId = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6761),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6763),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2215),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2217),
                             GameId = 1,
                             ReviewDate = new DateTime(2024, 1, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReviewRating = 8.0,
@@ -815,8 +815,8 @@ namespace GameVerse.Server.Migrations
                             Id = 2,
                             ConsumerId = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6767),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(6768),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2221),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2222),
                             GameId = 2,
                             ReviewDate = new DateTime(2023, 11, 13, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             ReviewRating = 4.5,
@@ -872,8 +872,8 @@ namespace GameVerse.Server.Migrations
                             Id = 1,
                             AvailabilityStatus = "Not Available",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7096),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7097),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2589),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2590),
                             DiscountedPrice = 57.0,
                             GameId = 1,
                             OriginalPrice = 69.989999999999995,
@@ -885,8 +885,8 @@ namespace GameVerse.Server.Migrations
                             Id = 2,
                             AvailabilityStatus = "Available",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7101),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7101),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2594),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2595),
                             DiscountedPrice = 85.900000000000006,
                             GameId = 3,
                             OriginalPrice = 99.900000000000006,
@@ -933,8 +933,8 @@ namespace GameVerse.Server.Migrations
                             Id = 1,
                             ConsumerId = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7316),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7317),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2901),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2902),
                             Games = "Mario vs. Donkey Kong, Open Roads",
                             UpdatedBy = "System"
                         },
@@ -943,8 +943,8 @@ namespace GameVerse.Server.Migrations
                             Id = 2,
                             ConsumerId = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7318),
-                            DateUpdated = new DateTime(2024, 1, 19, 10, 25, 40, 792, DateTimeKind.Local).AddTicks(7319),
+                            DateCreated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2904),
+                            DateUpdated = new DateTime(2024, 1, 19, 17, 56, 39, 166, DateTimeKind.Local).AddTicks(2905),
                             Games = "Hyper Light Breaker",
                             UpdatedBy = "System"
                         });
@@ -979,13 +979,13 @@ namespace GameVerse.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
+                            Id = "b2e72033-bcd7-4862-8f4b-e529252b0201",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
+                            Id = "52791369-72d2-4745-aafa-77a4128b3b61",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -1082,8 +1082,8 @@ namespace GameVerse.Server.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "3781efa7-66dc-47f0-860f-e506d04102e4",
-                            RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
+                            UserId = "f8f4089e-a9a4-440c-bdec-9a615bd72cbd",
+                            RoleId = "b2e72033-bcd7-4862-8f4b-e529252b0201"
                         });
                 });
 

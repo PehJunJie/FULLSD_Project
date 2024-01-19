@@ -1,0 +1,93 @@
+﻿@page "/games/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Game Games</h3>
+<br />
+
+@if (Games == null)
+{
+    <div class="alert alert-info">Loading Games...</div>
+}
+else
+{
+    <table class="table table-responsive" id="bookingsTable">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Overall Rating</th>
+                <th>Genre</th>
+                <th>Description</th>
+                <th>Developer</th>
+                <th>Publisher</th>
+                <th>Release Date</th>
+                <th>Platform(s)</th>
+                <th>Content Rating</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var game in Games)
+            {
+                <tr>
+                    <td>@game.Title</td>
+                    <td>@game.OverallRating</td>
+                    <td>@game.Genre</td>
+                    <td style="width:300px">@game.Description</td>
+                    <td>@game.Developer</td>
+                    <td>@game.Publisher</td>
+                    <td>@game.ReleaseDate.ToString("dd/MM/yyyy")</td>
+                    <td>@game.Platform</td>
+                    <td>@game.ContentRating</td>
+                    <td>
+                        <a href="/games/view/@game.Id" class="btn btn-primary">
+                            <span class="oi oi-eye"></span>
+                        </a>
+                        <a href="/games/edit/@game.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(game.Id))">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Game>? Games;
+
+    protected async override Task OnInitializedAsync()
+    {
+        // _interceptor.MonitorEvent();
+        Games = await _client.GetFromJsonAsync<List<Game>>($"{Endpoints.GamesEndpoint}");
+    }
+
+    async Task Delete(int gameId)
+    {
+        if (Games != null)
+        {
+            var game = Games.First(q => q.Id == gameId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {game.Title}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.GamesEndpoint}/{gameId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+
+    // protected async override Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    // }
+
+    // // public void Dispose()
+    // // {
+    // //     _interceptor.DisposeEvent();
+    // //     js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    // // }
+}

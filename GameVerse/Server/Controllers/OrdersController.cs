@@ -26,7 +26,7 @@ namespace GameVerse.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetOrders()
         {
-            var orders = await _unitOfWork.Orders.GetAll();
+            var orders = await _unitOfWork.Orders.GetAll(includes: q => q.Include(x => x.Consumer).Include(x => x.Payment));
 
             if (orders == null)
             {

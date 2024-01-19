@@ -15,7 +15,7 @@ namespace GameVerse.Server.Configurations.Entities
                     Id = 1,
 
                     Text = "I love playing Honkai: Star Rail!",
-                    CommentDate = new DateTime(2024, 1, 16),
+                    CommentDate = new DateTime(2024, 01, 16),
                     ConsumerId = 1,
                     CommunityId = 1,
 

@@ -13,13 +13,13 @@ namespace GameVerse.Server.Configurations.Entities
             builder.HasData(
                 new ApplicationUser
                 {
-                    Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
+                    Id = "f8f4089e-a9a4-440c-bdec-9a615bd72cbd",
                     Email = "admin@localhost.com",
                     NormalizedEmail = "ADMIN@LOCALHOST.COM",
                     FirstName = "Admin",
                     LastName = "User",
-                    UserName = "admin",
-                    NormalizedUserName = "ADMIN",
+                    UserName = "admin@localhost",
+                    NormalizedUserName = "ADMIN@LOCALHOST.COM",
                     PasswordHash = hasher.HashPassword(null, "P@ssword1")
                 }
                 );

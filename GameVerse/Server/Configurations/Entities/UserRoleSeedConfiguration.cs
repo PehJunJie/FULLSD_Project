@@ -11,8 +11,8 @@ namespace GameVerse.Server.Configurations.Entities
             builder.HasData(
             new IdentityUserRole<string>
             {
-                RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba", // Identity Role
-                UserId = "3781efa7-66dc-47f0-860f-e506d04102e4"  // Application User
+                RoleId = "b2e72033-bcd7-4862-8f4b-e529252b0201", // Identity Role
+                UserId = "f8f4089e-a9a4-440c-bdec-9a615bd72cbd"  // Application User
             }
             );
         }

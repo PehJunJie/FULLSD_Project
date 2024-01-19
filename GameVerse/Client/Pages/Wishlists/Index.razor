@@ -1,0 +1,79 @@
+﻿@page "/wishlists/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h3 class="card-title">Game Wishlists</h3>
+<br />
+
+@if (Wishlists == null)
+{
+    <div class="alert alert-info">Loading Wishlists...</div>
+}
+else
+{
+    <table class="table table-responsive" id="bookingsTable">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Game(s)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var wishlist in Wishlists)
+            {
+                <tr>
+                    <td>@wishlist.Consumer.Name</td>
+                    <td>@wishlist.Games</td>
+                    <td>
+                        <a href="/wishlists/view/@wishlist.Id" class="btn btn-primary">
+                            <span class="oi oi-eye"></span>
+                        </a>
+                        <a href="/wishlists/edit/@wishlist.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(wishlist.Id))">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private List<Wishlist>? Wishlists;
+
+    protected async override Task OnInitializedAsync()
+    {
+        // _interceptor.MonitorEvent();
+        Wishlists = await _client.GetFromJsonAsync<List<Wishlist>>($"{Endpoints.WishlistsEndpoint}");
+    }
+
+    async Task Delete(int wishlistId)
+    {
+        if (Wishlists != null)
+        {
+            var wishlist = Wishlists.First(q => q.Id == wishlistId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {wishlist.Consumer.Name}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.WishlistsEndpoint}/{wishlistId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+
+    // protected async override Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    // }
+
+    // // public void Dispose()
+    // // {
+    // //     _interceptor.DisposeEvent();
+    // //     js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    // // }
+}
