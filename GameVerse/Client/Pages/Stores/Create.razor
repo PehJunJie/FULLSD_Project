@@ -1,0 +1,28 @@
+﻿@page "/stores/create"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Sell New Game</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Sell Game" store="store" OnValidSubmit="@CreateStore" />
+
+
+
+@code {
+    Store store = new Store();
+
+    private IList<Game>? Games;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Games = await _client.GetFromJsonAsync<List<Game>>($"{Endpoints.GamesEndpoint}");
+    }
+
+    private async Task CreateStore()
+    {
+        await _client.PostAsJsonAsync(Endpoints.StoresEndpoint, store);
+        _navManager.NavigateTo("/stores/");
+    }
+}

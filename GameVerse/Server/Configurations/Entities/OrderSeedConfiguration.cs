@@ -38,6 +38,36 @@ namespace GameVerse.Server.Configurations.Entities
                     DateUpdated = DateTime.Now,
                     CreatedBy = "System",
                     UpdatedBy = "System"
+                },
+                new Order
+                {
+                    Id = 3,
+
+                    OrderDate = new DateTime(2024, 01, 22),
+                    OrderedGames = "Marvel's Spider-Man 2",
+                    AmountPaid = 69.99,
+                    ConsumerId = 4,
+                    PaymentId = 2,
+
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
+                },
+                new Order
+                {
+                    Id = 4,
+
+                    OrderDate = new DateTime(2024, 01, 30),
+                    OrderedGames = "Tekken 8, PUBG, Super Smash Bros. Ultimate",
+                    AmountPaid = 245.99,
+                    ConsumerId = 5,
+                    PaymentId = 4,
+
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 }
             );
         }

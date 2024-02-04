@@ -1,0 +1,18 @@
+﻿@page "/stores/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View Selling Game</h3>
+
+<FormComponent store="store" Disabled="true" /> @*disable textfield*@
+
+
+@code {
+    [Parameter] public int id { get; set; }
+    Store? store = new Store();
+    protected async override Task OnParametersSetAsync()
+    {
+        store = await
+        _client.GetFromJsonAsync<Store>($"{Endpoints.StoresEndpoint}/{id}");
+    }
+}

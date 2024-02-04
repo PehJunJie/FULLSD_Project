@@ -2,8 +2,18 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 
-<h3 class="card-title">Game Wishlists</h3>
+<h3 class="card-title">Consumer Wishlists</h3>
+<h5>Collection of current and future games that GameVerse users desires to acquire</h5>
+<br />
+
+<a href="/wishlists/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Wishlist
+</a>
+<br />
 <br />
 
 @if (Wishlists == null)
@@ -16,6 +26,7 @@ else
         <thead>
             <tr>
                 <th>Name</th>
+                <th>User Name</th>
                 <th>Game(s)</th>
                 <th>Actions</th>
             </tr>
@@ -25,6 +36,7 @@ else
             {
                 <tr>
                     <td>@wishlist.Consumer.Name</td>
+                    <td>@wishlist.Consumer.UserName</td>
                     <td>@wishlist.Games</td>
                     <td>
                         <a href="/wishlists/view/@wishlist.Id" class="btn btn-primary">
@@ -41,6 +53,7 @@ else
             }
         </tbody>
     </table>
+    <BottomInfo />
 }
 
 @code {
@@ -48,7 +61,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        // _interceptor.MonitorEvent();
+        _interceptor.MonitorEvent();
         Wishlists = await _client.GetFromJsonAsync<List<Wishlist>>($"{Endpoints.WishlistsEndpoint}");
     }
 
@@ -57,7 +70,7 @@ else
         if (Wishlists != null)
         {
             var wishlist = Wishlists.First(q => q.Id == wishlistId);
-            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {wishlist.Consumer.Name}?");
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {wishlist.Consumer.Name}'s wishlist?");
             if (confirm)
             {
                 await _client.DeleteAsync($"{Endpoints.WishlistsEndpoint}/{wishlistId}");
@@ -66,14 +79,14 @@ else
         }
     }
 
-    // protected async override Task OnAfterRenderAsync(bool firstRender)
-    // {
-    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
-    // }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    }
 
-    // // public void Dispose()
-    // // {
-    // //     _interceptor.DisposeEvent();
-    // //     js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
-    // // }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    }
 }

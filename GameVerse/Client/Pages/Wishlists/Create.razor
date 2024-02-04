@@ -1,0 +1,28 @@
+﻿@page "/wishlists/create"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Wishlist</h3>
+<hr />
+<br />
+
+<FormComponent ButtonText="Create Wishlist" wishlist="wishlist" OnValidSubmit="@CreateWishlist" />
+
+
+
+@code {
+    Wishlist wishlist = new Wishlist();
+
+    private IList<Consumer>? Consumers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Consumers = await _client.GetFromJsonAsync<List<Consumer>>($"{Endpoints.ConsumersEndpoint}");
+    }
+
+    private async Task CreateWishlist()
+    {
+        await _client.PostAsJsonAsync(Endpoints.WishlistsEndpoint, wishlist);
+        _navManager.NavigateTo("/wishlists/");
+    }
+}

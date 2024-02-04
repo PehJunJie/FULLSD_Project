@@ -1,0 +1,23 @@
+﻿@page "/stores/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Edit Selling Game</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditStore" store="store" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Store? store = new Store();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        store = await _client.GetFromJsonAsync<Store>($"{Endpoints.StoresEndpoint}/{id}");
+    }
+
+    async Task EditStore() 
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.StoresEndpoint}/{id}", store); 
+        _navManager.NavigateTo("/stores/"); 
+    }
+}

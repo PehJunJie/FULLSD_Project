@@ -1,0 +1,83 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@store" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label> Game: </label>
+            <div>
+                <InputSelect @bind-Value="store.GameId" class="form-control" style="width: 500px;">
+                    <option value="">-- Select Game --</option>
+                    @if (Games != null)
+                    {
+                        foreach (var game in Games)
+                        {
+                            <option value="@game.Id">@game.Title -- @game.Genre</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => store.GameId)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Original Price ($): </label>
+            <div>
+                <InputNumber @bind-Value="store.OriginalPrice" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => store.OriginalPrice)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Discounted Price  ($): </label>
+            <div>
+                <InputNumber @bind-Value="store.DiscountedPrice" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => store.DiscountedPrice)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Subscription: </label>
+            <div>
+                <InputCheckbox @bind-Value="store.Subscription" class="form-check-input" style="width: 50px; height: 30px;" />
+                <ValidationMessage For="@(() => store.Subscription)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Availability Status: </label>
+            <div>
+                <InputSelect @bind-Value="store.AvailabilityStatus" class="form-control" style="width: 500px;">
+                    <option value="">-- Select Availability --</option>
+                    <option value="Available">Available</option>
+                    <option value="Not Available">Not Available</option>
+                </InputSelect>
+                <ValidationMessage For="@(() => store.AvailabilityStatus)" />
+            </div>
+        </div>
+    </fieldset>
+    <br />
+    @if (!Disabled) 
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="stores" />
+</EditForm>
+<BottomInfo />
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Store? store { get; set; } 
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; } 
+
+    private IList<Game>? Games;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Games = await _client.GetFromJsonAsync<List<Game>>($"{Endpoints.GamesEndpoint}");
+    }
+}

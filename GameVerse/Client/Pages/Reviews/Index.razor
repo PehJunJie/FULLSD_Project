@@ -2,8 +2,18 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 
 <h3 class="card-title">Game Reviews</h3>
+<h5>Reviews of games provided by GameVerse users</h5>
+<br />
+
+<a href="/reviews/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Review
+</a>
+<br />
 <br />
 
 @if (Reviews == null)
@@ -29,7 +39,20 @@ else
                 <tr>
                     <td>@review.Consumer.UserName</td>
                     <td>@review.Game.Title</td>
-                    <td>@review.ReviewRating</td>
+                    <td>
+                        @if (review.ReviewRating >= 7)
+                        {
+                            <span style="color: #4dff88">@review.ReviewRating</span>
+                        }
+                        else if (review.ReviewRating >= 5)
+                        {
+                            <span style="color: #ffcc00">@review.ReviewRating</span>
+                        }
+                        else
+                        {
+                            <span style="color: #ff4d4d">@review.ReviewRating</span>
+                        }
+                    </td>
                     <td>@review.Text</td>
                     <td>@review.ReviewDate.ToString("dd/MM/yyyy")</td>
                     <td>
@@ -47,6 +70,7 @@ else
             }
         </tbody>
     </table>
+    <BottomInfo />
 }
 
 @code {
@@ -54,7 +78,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        // _interceptor.MonitorEvent();
+        _interceptor.MonitorEvent();
         Reviews = await _client.GetFromJsonAsync<List<Review>>($"{Endpoints.ReviewsEndpoint}");
     }
 
@@ -63,7 +87,7 @@ else
         if (Reviews != null)
         {
             var review = Reviews.First(q => q.Id == reviewId);
-            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {review.Consumer.UserName}?");
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {review.Consumer.UserName}'s review?");
             if (confirm)
             {
                 await _client.DeleteAsync($"{Endpoints.ReviewsEndpoint}/{reviewId}");
@@ -72,14 +96,14 @@ else
         }
     }
 
-    // protected async override Task OnAfterRenderAsync(bool firstRender)
-    // {
-    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
-    // }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    }
 
-    // // public void Dispose()
-    // // {
-    // //     _interceptor.DisposeEvent();
-    // //     js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
-    // // }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    }
 }

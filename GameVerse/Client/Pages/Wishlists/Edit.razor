@@ -1,0 +1,23 @@
+﻿@page "/wishlists/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Edit Wishlist</h3>
+
+<FormComponent ButtonText="Update" OnValidSubmit="EditWishlist" wishlist="wishlist" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Wishlist? wishlist = new Wishlist();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        wishlist = await _client.GetFromJsonAsync<Wishlist>($"{Endpoints.WishlistsEndpoint}/{id}");
+    }
+
+    async Task EditWishlist()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.WishlistsEndpoint}/{id}", wishlist); 
+        _navManager.NavigateTo("/wishlists/"); 
+    }
+}

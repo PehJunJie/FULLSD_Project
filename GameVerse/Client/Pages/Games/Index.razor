@@ -2,8 +2,18 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 
-<h3 class="card-title">Game Games</h3>
+<h3 class="card-title">Explore Games</h3>
+<h5>Wide selection of games of different genres</h5>
+<br />
+
+<a href="/games/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Game
+</a>
+<br />
 <br />
 
 @if (Games == null)
@@ -15,6 +25,7 @@ else
     <table class="table table-responsive" id="bookingsTable">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Title</th>
                 <th>Overall Rating</th>
                 <th>Genre</th>
@@ -31,10 +42,33 @@ else
             @foreach (var game in Games)
             {
                 <tr>
+                    <td>
+                        @if (game.Image != null)
+                        {
+                            <img src="@($"data:image/jpeg;base64,{game.Image}")" width="140" height="140"/>
+                        }
+                        else
+                        {
+                            <img src="noimage.jpeg" width="140" height="140" />
+                        }
+                    </td>
                     <td>@game.Title</td>
-                    <td>@game.OverallRating</td>
+                    <td>
+                        @if (game.OverallRating >= 7)
+                        {
+                            <span style="color: #4dff88">@game.OverallRating</span>
+                        }
+                        else if (game.OverallRating >= 5)
+                        {
+                            <span style="color: #ffcc00">@game.OverallRating</span>
+                        }
+                        else
+                        {
+                            <span style="color: #ff4d4d">@game.OverallRating</span>
+                        }
+                    </td>
                     <td>@game.Genre</td>
-                    <td style="width:300px">@game.Description</td>
+                    <td>@game.Description</td>
                     <td>@game.Developer</td>
                     <td>@game.Publisher</td>
                     <td>@game.ReleaseDate.ToString("dd/MM/yyyy")</td>
@@ -55,6 +89,7 @@ else
             }
         </tbody>
     </table>
+    <BottomInfo />
 }
 
 @code {
@@ -62,7 +97,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        // _interceptor.MonitorEvent();
+        _interceptor.MonitorEvent();
         Games = await _client.GetFromJsonAsync<List<Game>>($"{Endpoints.GamesEndpoint}");
     }
 
@@ -80,14 +115,14 @@ else
         }
     }
 
-    // protected async override Task OnAfterRenderAsync(bool firstRender)
-    // {
-    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
-    // }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    }
 
-    // // public void Dispose()
-    // // {
-    // //     _interceptor.DisposeEvent();
-    // //     js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
-    // // }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    }
 }

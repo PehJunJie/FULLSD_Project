@@ -2,8 +2,18 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 
 <h3 class="card-title">Game Orders</h3>
+<h5>Game transactions initiated by GameVerse users</h5>
+<br />
+
+<a href="/orders/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Order
+</a>
+<br />
 <br />
 
 @if (Orders == null)
@@ -47,6 +57,7 @@ else
             }
         </tbody>
     </table>
+    <BottomInfo />
 }
 
 @code {
@@ -54,7 +65,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        // _interceptor.MonitorEvent();
+        _interceptor.MonitorEvent();
         Orders = await _client.GetFromJsonAsync<List<Order>>($"{Endpoints.OrdersEndpoint}");
     }
 
@@ -63,7 +74,7 @@ else
         if (Orders != null)
         {
             var order = Orders.First(q => q.Id == orderId);
-            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {order.Consumer.Name} orders?");
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {order.Consumer.Name}'s orders?");
             if (confirm)
             {
                 await _client.DeleteAsync($"{Endpoints.OrdersEndpoint}/{orderId}");
@@ -72,14 +83,14 @@ else
         }
     }
 
-    // protected async override Task OnAfterRenderAsync(bool firstRender)
-    // {
-    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
-    // }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    }
 
-    // // public void Dispose()
-    // // {
-    // //     _interceptor.DisposeEvent();
-    // //     js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
-    // // }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    }
 }

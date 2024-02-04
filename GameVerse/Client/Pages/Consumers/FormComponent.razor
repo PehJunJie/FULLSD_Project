@@ -1,0 +1,89 @@
+﻿@inject IJSRuntime js
+
+<h6>Note that the image must be in jpg/jpeg type, size not exceeding 200 KB.</h6>
+<EditForm Model="@consumer" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label> Image: </label>
+            <div>
+                <InputFile @bind-Value="consumer.Image" class="form-control" style="width: 500px;" OnChange="HandleFileSelected" />
+                <ValidationMessage For="@(() => consumer.Image)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Name: </label>
+            <div>
+                <InputText @bind-Value="consumer.Name" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => consumer.Name)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> User Name: </label>
+            <div>
+                <InputText @bind-Value="consumer.UserName" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => consumer.UserName)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Email Address: </label>
+            <div>
+                <InputText @bind-Value="consumer.EmailAddress" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => consumer.EmailAddress)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Age: </label>
+            <div>
+                <InputNumber @bind-Value="consumer.Age" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => consumer.Age)" />
+            </div>
+        </div>
+    </fieldset>
+    <br />
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="consumers" />
+</EditForm>
+<BottomInfo /> 
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Consumer? consumer { get; set; } 
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; } 
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        var imageFile = e.File;
+
+        // Check the file size (max 200 KB)
+        var maxFileSize = 200 * 1024;
+        // Check the file type (only jpg or jpeg)
+        var allowedTypes = new[] { "image/jpg", "image/jpeg" };
+        if (imageFile.Size > maxFileSize || !allowedTypes.Contains(imageFile.ContentType))
+        {
+            // Show an error message
+            var alert = await js.InvokeAsync<bool>("confirm", $"The image does not meet the requirements");
+            return;
+        }
+        else
+        {
+            // Read the file content into a byte array and convert to base64-encoded string
+            using (MemoryStream ms = new MemoryStream())
+            {
+                await imageFile.OpenReadStream().CopyToAsync(ms);
+                consumer.Image = Convert.ToBase64String(ms.ToArray());
+            }
+        }     
+    }
+}

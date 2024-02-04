@@ -9,7 +9,10 @@ namespace GameVerse.Shared.Domain
 {
     public class Wishlist : BaseDomainModel
     {
+        [Required]
         public string? Games { get; set; }
+
+        [Required]
         public int? ConsumerId { get; set; }
         public virtual Consumer? Consumer { get; set; }
     }

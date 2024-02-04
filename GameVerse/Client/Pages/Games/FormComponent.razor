@@ -1,0 +1,137 @@
+﻿@inject IJSRuntime js
+
+<h6>Note that the image must be in jpg/jpeg type, size not exceeding 200 KB.</h6>
+<EditForm Model="@game" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label> Image: </label>
+            <div>
+                <InputFile @bind-Value="game.Image" class="form-control" style="width: 500px;" OnChange="HandleFileSelected" />
+                <ValidationMessage For="@(() => game.Image)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Title: </label>
+            <div>
+                <InputText @bind-Value="game.Title" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => game.Title)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Genre: </label>
+            <div>
+                <InputText @bind-Value="game.Genre" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => game.Genre)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Developer: </label>
+            <div>
+                <InputText @bind-Value="game.Developer" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => game.Developer)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Publisher: </label>
+            <div>
+                <InputText @bind-Value="game.Publisher" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => game.Publisher)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Release Date: </label>
+            <div>
+                <InputDate @bind-Value="@game.ReleaseDate" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => game.ReleaseDate)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Overall Rating: </label>
+            <div>
+                <InputNumber @bind-Value="game.OverallRating" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => game.OverallRating)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Description: </label>
+            <div>
+                <InputTextArea @bind-Value="game.Description" class="form-control" style="width: 500px; height: 200px;" />
+                <ValidationMessage For="@(() => game.Description)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Platform: </label>
+            <div>
+                <InputText @bind-Value="game.Platform" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => game.Platform)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Content Rating: </label>
+            <div>
+                <InputSelect @bind-Value="game.ContentRating" class="form-control" style="width: 500px;">
+                    <option value="">-- Select Content Rating --</option>
+                    <option value="E">E</option>
+                    <option value="E10+">E10+</option>
+                    <option value="T">T</option>
+                    <option value="M">M</option>
+                    <option value="Ao">Ao</option>                  
+                </InputSelect>
+                <ValidationMessage For="@(() => game.ContentRating)" />
+            </div>
+        </div>
+        <br />
+    </fieldset>
+    <br />
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="games" />
+</EditForm>
+<BottomInfo />
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Game? game { get; set; } 
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; } 
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        var imageFile = e.File;
+
+        // Check the file size (max 200 KB)
+        var maxFileSize = 200 * 1024;
+        // Check the file type (only jpg or jpeg)
+        var allowedTypes = new[] { "image/jpg", "image/jpeg" };
+        if (imageFile.Size > maxFileSize || !allowedTypes.Contains(imageFile.ContentType))
+        {
+            // Show an error message
+            var alert = await js.InvokeAsync<bool>("confirm", $"The image does not meet the requirements");
+            return;
+        }
+        else
+        {
+            // Read the file content into a byte array and convert to base64-encoded string
+            using (MemoryStream ms = new MemoryStream())
+            {
+                await imageFile.OpenReadStream().CopyToAsync(ms);
+                game.Image = Convert.ToBase64String(ms.ToArray());
+            }
+        }
+    }
+}

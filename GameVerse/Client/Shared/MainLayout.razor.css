@@ -2,7 +2,8 @@
     position: relative;
     display: flex;
     flex-direction: column;
-    background-color: #cccccc;
+    background-color: #8c99a6; /*grey*/
+    h3 {font-family: fantasy; color: #001f3f}
 }
 
 main {
@@ -10,7 +11,7 @@ main {
 }
 
 .sidebar {
-    background-image: linear-gradient(180deg, rgb(0, 128, 0) 0%, #001f3f 70%);
+    background-image: linear-gradient(180deg, rgb(0, 128, 0) 0%, #001f3f 70%); /*green to blue*/
 }
 
 .top-row {

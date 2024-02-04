@@ -26,7 +26,7 @@ namespace GameVerse.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetWishlists()
         {
-            var wishlists = await _unitOfWork.Wishlists.GetAll(includes: q => q.Include(x =>x.Consumer));
+            var wishlists = await _unitOfWork.Wishlists.GetAll(includes: q => q.Include(x => x.Consumer));
 
             if (wishlists == null)
             {

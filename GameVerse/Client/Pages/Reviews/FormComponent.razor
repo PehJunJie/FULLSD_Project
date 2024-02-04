@@ -1,0 +1,90 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@review" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label> Consumer: </label>
+            <div>
+                <InputSelect @bind-Value="review.ConsumerId" class="form-control" style="width: 500px;">
+                    <option value="">-- Select Consumer --</option>
+                    @if (Consumers != null)
+                    {
+                        foreach (var consumer in Consumers)
+                        {
+                            <option value="@consumer.Id">@consumer.Name ( @consumer.UserName )</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => review.ConsumerId)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Game: </label>
+            <div>
+                <InputSelect @bind-Value="review.GameId" class="form-control" style="width: 500px;">
+                    <option value="">-- Select Game --</option>
+                    @if (Games != null)
+                    {
+                        foreach (var game in Games)
+                        {
+                            <option value="@game.Id">@game.Title -- @game.Genre</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => review.GameId)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> User Rating: </label>
+            <div>
+                <InputNumber @bind-Value="review.ReviewRating" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => review.ReviewRating)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Review: </label>
+            <div>
+                <InputTextArea @bind-Value="review.Text" class="form-control" style="width: 500px; height: 160px;" />
+                <ValidationMessage For="@(() => review.Text)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Review Date: </label>
+            <div>
+                <InputDate @bind-Value="@review.ReviewDate" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => review.ReviewDate)" />
+            </div>
+        </div>
+    </fieldset>
+    <br />
+    @if (!Disabled) 
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="reviews" />
+</EditForm>
+<BottomInfo />
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Review? review { get; set; } 
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; } 
+
+    private IList<Consumer>? Consumers;
+    private IList<Game>? Games;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Consumers = await _client.GetFromJsonAsync<List<Consumer>>($"{Endpoints.ConsumersEndpoint}");
+        Games = await _client.GetFromJsonAsync<List<Game>>($"{Endpoints.GamesEndpoint}");
+    }
+}

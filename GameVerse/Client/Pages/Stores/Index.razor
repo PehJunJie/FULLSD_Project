@@ -1,0 +1,116 @@
+﻿@page "/stores/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
+
+<h3 class="card-title">Game Store</h3>
+<h5>Wide selection of games offered in GameVerse Store</h5>
+<br />
+
+<a href="/stores/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Sell New Game
+</a>
+<br />
+<br />
+
+@if (Stores == null)
+{
+    <div class="alert alert-info">Loading Stores...</div>
+}
+else
+{
+    <table class="table table-responsive" id="bookingsTable">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Game</th>
+                <th>Original</th>
+                <th>Discounted</th>
+                <th>Subscription</th>
+                <th>Availability</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var store in Stores)
+            {
+                <tr>
+                    <td>
+                        @if (store.Game.Image != null)
+                        {
+                            <img src="@($"data:image/jpeg;base64,{store.Game.Image}")" width="140" height="140" />
+                        }
+                        else
+                        {
+                            <img src="noimage.jpeg" width="140" height="140" />
+                        }
+                    </td>
+                    <td>@store.Game.Title</td>
+                    <td>@store.OriginalPrice.ToString("$0.00")</td>
+                    <td>
+                        @if (store.DiscountedPrice == store.OriginalPrice)
+                        {
+                            <span>No Discount</span>
+                        }
+                        else
+                        {
+                            @store.DiscountedPrice.ToString("$0.00")
+                        }
+                    </td>
+                    <td>@store.Subscription</td>
+                    <td>@store.AvailabilityStatus</td>
+                    <td>
+                        <a href="/stores/view/@store.Id" class="btn btn-primary">
+                            <span class="oi oi-eye"></span>
+                        </a>
+                        <a href="/stores/edit/@store.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(store.Id))">
+                            <span class="oi oi-trash"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <BottomInfo />
+}
+
+@code {
+    private List<Store>? Stores;
+
+    protected async override Task OnInitializedAsync()
+    {
+        _interceptor.MonitorEvent();
+        Stores = await _client.GetFromJsonAsync<List<Store>>($"{Endpoints.StoresEndpoint}");
+    }
+
+    async Task Delete(int storeId)
+    {
+        if (Stores != null)
+        {
+            var store = Stores.First(q => q.Id == storeId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {store.Game.Title}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.StoresEndpoint}/{storeId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    }
+
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    }
+}

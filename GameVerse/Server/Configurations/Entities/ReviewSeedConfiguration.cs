@@ -14,7 +14,8 @@ namespace GameVerse.Server.Configurations.Entities
                     Id = 1,
 
                     ReviewRating = 8.0, 
-                    Text = "The game provides a lot of freebies, leveling up every quickly without spending money.",
+                    Text = "The game design is very different from Breath of the Wild. With Tears of the Kingdom, " +
+                    "creativity and appropriation of space are highlighted in an unparalleled way in an open world game.",
                     ReviewDate = new DateTime(2024, 01, 02), 
                     ConsumerId = 1,
                     GameId = 1,
@@ -29,10 +30,27 @@ namespace GameVerse.Server.Configurations.Entities
                     Id = 2,
 
                     ReviewRating = 7.5,
-                    Text = "The game turns out to be pretty good with amazing character designs.",
+                    Text = "The combat is pretty fun, but it's still just another gacha game at the end of the day. " +
+                    "If you're cool with that, you'll probably love it.",
                     ReviewDate = new DateTime(2023, 11, 13),
                     ConsumerId = 2,
                     GameId = 2,
+
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
+                },
+                new Review
+                {
+                    Id = 3,
+
+                    ReviewRating = 4.5,
+                    Text = "I knew about this game for a very very long time, but somehow had no urge to play it. " +
+                    "But today i did, and boy it was disappointing. Maybe ps4 first party studios spoiled me or something. ",
+                    ReviewDate = new DateTime(2023, 11, 13),
+                    ConsumerId = 5,
+                    GameId = 5,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,

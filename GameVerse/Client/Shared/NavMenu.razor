@@ -13,75 +13,95 @@
     <nav class="flex-column">
         <AuthorizeView>
             <Authorized>
-                <div class="nav-item px-3">
+                <div class="nav-item px-2">
                     <NavLink class="nav-link" href="authentication/profile" Match="NavLinkMatch.All">
                         <span class="oi oi-person" aria-hidden="true"></span>@context.User.Identity?.Name 
                     </NavLink>
                 </div>
-                <div class="nav-item px-3">
+                <div class="nav-item px-2">
                     <NavLink class="nav-link" href="#" @onclick="BeginLogOut" Match="NavLinkMatch.All">
                         <span class="oi oi-account-logout" aria-hidden="true"></span> Log out
                     </NavLink>
                 </div>
             </Authorized>
             <NotAuthorized>
-                <div class="nav-item px-3">
+                <div class="nav-item px-2">
                     <NavLink class="nav-link" href="authentication/register" Match="NavLinkMatch.All">
                         <span class="oi oi-person" aria-hidden="true"></span> Register
                     </NavLink>
                 </div>
-                <div class="nav-item px-3">
+                <div class="nav-item px-2">
                     <NavLink class="nav-link" href="authentication/login" Match=" NavLinkMatch.All">
                         <span class="oi oi-account-login" aria-hidden="true"></span> Log in
                     </NavLink>
                 </div>
             </NotAuthorized>
         </AuthorizeView>
-        <div class="nav-item px-3">
+        <div class="nav-item px-2">
             <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
             </NavLink>
         </div>
-        @* <div class="nav-item px-3">
+        @* <div class="nav-item px-2">
             <NavLink class="nav-link" href="counter">
                 <span class="oi oi-plus" aria-hidden="true"></span> Counter
             </NavLink>
-        </div>
-        <div class="nav-item px-3">
+        </div> *@
+        @* <div class="nav-item px-2">
             <NavLink class="nav-link" href="fetchdata">
                 <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
             </NavLink>
         </div> *@
-        <div class="nav-item px-3">
+        <div class="nav-item px-2">
             <NavLink class="nav-link" href="games">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Explore Games
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Games
             </NavLink>
         </div>
-        <div class="nav-item px-3">
+        <div class="nav-item px-2">
             <NavLink class="nav-link" href="consumers">
                 <span class="oi oi-people" aria-hidden="true"></span> Consumers
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="payments">
-                <span class="oi oi-credit-card" aria-hidden="true"></span> Payments
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="orders">
-                <span class="oi oi-cart" aria-hidden="true"></span> Game Orders
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
+        <div class="nav-item px-2">
             <NavLink class="nav-link" href="wishlists">
                 <span class="oi oi-list" aria-hidden="true"></span> Wishlists
             </NavLink>
         </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="reviews">
-                <span class="oi oi-star" aria-hidden="true"></span> Game Reviews
+        @* <div class="nav-item px-2">
+            <NavLink class="nav-link" href="recommendations">
+                <span class="oi oi-star" aria-hidden="true"></span> Recommendations
+            </NavLink>
+        </div> *@
+        <div class="nav-item px-2">
+            <NavLink class="nav-link" href="stores">
+                <span class="oi oi-tags" aria-hidden="true"></span> Game Store
             </NavLink>
         </div>
+        <div class="nav-item px-2">
+            <NavLink class="nav-link" href="payments">
+                <span class="oi oi-credit-card" aria-hidden="true"></span> Payments
+            </NavLink>
+        </div>
+        <div class="nav-item px-2">
+            <NavLink class="nav-link" href="orders">
+                <span class="oi oi-cart" aria-hidden="true"></span> Game Orders
+            </NavLink>
+        </div>       
+        <div class="nav-item px-2">
+            <NavLink class="nav-link" href="reviews">
+                <span class="oi oi-bar-chart" aria-hidden="true"></span> Game Reviews
+            </NavLink>
+        </div>
+        @* <div class="nav-item px-2">
+            <NavLink class="nav-link" href="communities">
+                <span class="oi oi-globe" aria-hidden="true"></span> Communities
+            </NavLink>
+        </div> *@
+        @* <div class="nav-item px-2">
+            <NavLink class="nav-link" href="comments">
+                <span class="oi oi-chat" aria-hidden="true"></span> Chats
+            </NavLink>
+        </div> *@
     </nav>
 </div>
 

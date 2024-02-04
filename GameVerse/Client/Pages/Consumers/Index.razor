@@ -2,8 +2,18 @@
 @inject HttpClient _client
 @inject IJSRuntime js
 @attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
 
 <h3 class="card-title">Game Consumers</h3>
+<h5>The userbase of GameVerse</h5>
+<br />
+
+<a href="/consumers/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Consumer
+</a>
+<br />
 <br />
 
 @if (Consumers == null)
@@ -15,6 +25,7 @@ else
     <table class="table table-responsive" id="bookingsTable">
         <thead>
             <tr>
+                <th>Image</th>
                 <th>Name</th>
                 <th>User Name</th>
                 <th>Email Address</th>
@@ -26,6 +37,16 @@ else
             @foreach (var consumer in Consumers)
             {
                 <tr>
+                    <td>
+                        @if (consumer.Image != null)
+                        {
+                            <img src="@($"data:image/jpeg;base64,{consumer.Image}")" width="80" height="80" style="border-radius: 50%;" />
+                        }
+                        else
+                        {
+                            <img src="defaultprofile.jpeg" width="80" height="80" style="border-radius: 50%;" />
+                        }
+                    </td>
                     <td>@consumer.Name</td>
                     <td>@consumer.UserName</td>
                     <td>@consumer.EmailAddress</td>
@@ -45,6 +66,7 @@ else
             }
         </tbody>
     </table>
+    <BottomInfo />
 }
 
 @code {
@@ -52,7 +74,7 @@ else
 
     protected async override Task OnInitializedAsync()
     {
-        // _interceptor.MonitorEvent();
+        _interceptor.MonitorEvent();
         Consumers = await _client.GetFromJsonAsync<List<Consumer>>($"{Endpoints.ConsumersEndpoint}");
     }
 
@@ -70,14 +92,14 @@ else
         }
     }
 
-    // protected async override Task OnAfterRenderAsync(bool firstRender)
-    // {
-    //     await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
-    // }
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#bookingsTable");
+    }
 
-    // // public void Dispose()
-    // // {
-    // //     _interceptor.DisposeEvent();
-    // //     js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
-    // // }
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#bookingsTable");
+    }
 }

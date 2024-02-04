@@ -1,0 +1,90 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@order" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+        <div class="form-group">
+            <label> Consumer: </label>
+            <div>
+                <InputSelect @bind-Value="order.ConsumerId" class="form-control" style="width: 500px;">
+                    <option value="">-- Select Consumer --</option>
+                    @if (Consumers != null)
+                    {
+                        foreach (var consumer in Consumers)
+                        {
+                            <option value="@consumer.Id">@consumer.Name ( @consumer.UserName )</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => order.ConsumerId)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Payment: </label>
+            <div>
+                <InputSelect @bind-Value="order.PaymentId" class="form-control" style="width: 500px;">
+                    <option value="">-- Select Payment --</option>
+                    @if (Payments != null)
+                    {
+                        foreach (var payment in Payments)
+                        {
+                            <option value="@payment.Id">@payment.Method</option>
+                        }
+                    }
+                </InputSelect>
+                <ValidationMessage For="@(() => order.PaymentId)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Ordered Game(s): </label>
+            <div>
+                <InputText @bind-Value="order.OrderedGames" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => order.OrderedGames)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Amount paid: </label>
+            <div>
+                <InputNumber @bind-Value="order.AmountPaid" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => order.AmountPaid)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label> Order Date: </label>
+            <div>
+                <InputDate @bind-Value="@order.OrderDate" class="form-control" style="width: 500px;" />
+                <ValidationMessage For="@(() => order.OrderDate)" />
+            </div>
+        </div>
+    </fieldset>
+    <br />
+    @if (!Disabled) 
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+    <BackToList Target="orders" />
+</EditForm>
+<BottomInfo />
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Order? order { get; set; } 
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; } 
+
+    private IList<Consumer>? Consumers;
+    private IList<Payment>? Payments;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Consumers = await _client.GetFromJsonAsync<List<Consumer>>($"{Endpoints.ConsumersEndpoint}");
+        Payments = await _client.GetFromJsonAsync<List<Payment>>($"{Endpoints.PaymentsEndpoint}");
+    }
+}

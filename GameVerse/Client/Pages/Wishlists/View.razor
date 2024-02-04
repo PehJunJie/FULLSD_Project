@@ -1,0 +1,18 @@
+﻿@page "/wishlists/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View Wishlist</h3>
+
+<FormComponent wishlist="wishlist" Disabled="true" /> @*disable textfield*@
+
+
+@code {
+    [Parameter] public int id { get; set; }
+    Wishlist? wishlist = new Wishlist();
+    protected async override Task OnParametersSetAsync()
+    {
+        wishlist = await
+        _client.GetFromJsonAsync<Wishlist>($"{Endpoints.WishlistsEndpoint}/{id}");
+    }
+}

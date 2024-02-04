@@ -7,7 +7,7 @@ namespace GameVerse.Server.Configurations.Entities
 {
     public class PaymentSeedConfiguration : IEntityTypeConfiguration<Payment>
     {
-        public void Configure(EntityTypeBuilder<Payment> builder) // Maybank, HSBC, Standard Chartered, Bank of China, ICBC
+        public void Configure(EntityTypeBuilder<Payment> builder) // HSBC, Standard Chartered, ICBC
         {
             builder.HasData(
                 new Payment
@@ -48,6 +48,28 @@ namespace GameVerse.Server.Configurations.Entities
                     Id = 4,
 
                     Method = "Citybank",
+
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
+                },
+                new Payment
+                {
+                    Id = 5,
+
+                    Method = "Maybank",
+
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
+                },
+                new Payment
+                {
+                    Id = 6,
+
+                    Method = " Bank of China (BOC)",
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,

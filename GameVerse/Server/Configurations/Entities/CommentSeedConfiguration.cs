@@ -15,9 +15,9 @@ namespace GameVerse.Server.Configurations.Entities
                     Id = 1,
 
                     Text = "I love playing Honkai: Star Rail!",
+                    Title = "pppppp",
                     CommentDate = new DateTime(2024, 01, 16),
                     ConsumerId = 1,
-                    CommunityId = 1,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
@@ -29,9 +29,9 @@ namespace GameVerse.Server.Configurations.Entities
                     Id = 2,
 
                     Text = "LE SSERAFIM x Overwatch2 collab is sick!",
+                    Title = "oooooo",
                     CommentDate = new DateTime(2023, 10, 27),
                     ConsumerId = 2,
-                    CommunityId = 2,
 
                     DateCreated = DateTime.Now,
                     DateUpdated = DateTime.Now,
