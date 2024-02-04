@@ -1,0 +1,20 @@
+﻿@page "/recommendations/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Recommendations</h3>
+<hr />
+<br />
+
+<RecommendationFormComponent ButtonText="Create Recommendation" recommendation="recommendation" OnValidSubmit="@CreateRecommendations" />
+
+@code {
+    Recommendation recommendation = new Recommendation();
+
+    private async Task CreateRecommendations()
+    {
+        await _client.PostAsJsonAsync(Endpoints.RecommendationsEndpoint, recommendation);
+        _navManager.NavigateTo("/recommendations/");
+    }
+
+}

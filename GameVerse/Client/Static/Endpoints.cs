@@ -5,6 +5,7 @@
         private static readonly string Prefix = "api";
 
         public static readonly string CommentsEndpoint = $"{Prefix}/comments";
+        public static readonly string ForumsEndpoint = $"{Prefix}/forums";
         public static readonly string CommunitiesEndpoint = $"{Prefix}/communities";
         public static readonly string ConsumersEndpoint = $"{Prefix}/consumers";
         public static readonly string GamesEndpoint = $"{Prefix}/games";

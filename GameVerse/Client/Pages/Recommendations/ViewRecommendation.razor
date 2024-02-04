@@ -1,0 +1,16 @@
+﻿@page "/recommendations/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View Recommendation</h3>
+
+<RecommendationFormComponent recommendation="recommendation" Disabled="true" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Recommendation? recommendation = new Recommendation();
+    protected async override Task OnParametersSetAsync()
+    {
+        recommendation = await _client.GetFromJsonAsync<Recommendation>($"{Endpoints.RecommendationsEndpoint}/{id}");
+    }
+}

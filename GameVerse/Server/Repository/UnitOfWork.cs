@@ -18,6 +18,7 @@ namespace GameVerse.Server.Repository
     {
         private readonly ApplicationDbContext _context;
         private IGenericRepository<Comment> _comments;
+        private IGenericRepository<Forum> _forums;
         private IGenericRepository<Community> _communities;
         private IGenericRepository<Consumer> _consumers;
         private IGenericRepository<Game> _games;
@@ -38,6 +39,8 @@ namespace GameVerse.Server.Repository
 
         public IGenericRepository<Comment> Comments
             => _comments ??= new GenericRepository<Comment>(_context);
+        public IGenericRepository<Forum> Forums
+            => _forums ??= new GenericRepository<Forum>(_context);
         public IGenericRepository<Community> Communities
             => _communities ??= new GenericRepository<Community>(_context);
         public IGenericRepository<Consumer> Consumers

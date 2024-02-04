@@ -1,0 +1,87 @@
+﻿@page "/comments/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+<h1>Comments</h1>
+
+<h5>
+    Welcome to GameVerse Comments<br />
+    Have online discussion with other users online!
+</h5>
+
+
+<a href="/comments/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Comments
+</a>
+<br />
+<br />
+
+@* <BackToList Target="forums" > Back to Forums </BackToList> *@
+
+@if (Comments == null)
+{
+    <div class="alert alert-info">Loading Comments...</div>
+}
+
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Text</th>
+                <th>Comment Date</th>
+                <th>Name</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var comment in Comments)
+            {
+                <tr>
+                    <td>@comment.Text</td>
+                    <td>@comment.DateCreated</td>
+                    <td>@comment.Consumer.Name</td>
+                    <td>
+                        <a href="/consumers/create" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/comments/edit/@comment.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(comment.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<Comment>? Comments;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Comments = await _client.GetFromJsonAsync<List<Comment>>($"{Endpoints.CommentsEndpoint}");
+    }
+
+    async Task Delete(int commentId)
+    {
+        if (Comments != null)
+        {
+            var comment = Comments.First(q => q.Id == commentId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete comment Id :{comment.Id}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.CommentsEndpoint}/{commentId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
+
+

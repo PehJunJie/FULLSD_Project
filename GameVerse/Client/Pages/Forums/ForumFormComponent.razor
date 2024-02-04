@@ -1,0 +1,45 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@forum" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+
+        <div class="form-group">
+            <label>Text: </label>
+            <div>
+                <InputText @bind-Value="@forum.Topic" class="form-control" />
+                <ValidationMessage For="@(() => forum.Topic)" />
+            </div>
+        </div>
+
+        <br /> 
+
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+
+    <br />
+    <br />
+    <BackToList Target="forums" />
+
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Forum? forum { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Consumer>? Consumers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Consumers = await _client.GetFromJsonAsync<List<Consumer>>($"{Endpoints.ConsumersEndpoint}");
+    }
+}

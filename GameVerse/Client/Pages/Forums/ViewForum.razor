@@ -1,0 +1,16 @@
+﻿@page "/forums/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3>View Forum</h3>
+
+<ForumFormComponent forum="forum" Disabled="true" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Forum? forum = new Forum();
+    protected async override Task OnParametersSetAsync()
+    {
+        forum = await _client.GetFromJsonAsync<Forum>($"{Endpoints.ForumsEndpoint}/{id}");
+    }
+}

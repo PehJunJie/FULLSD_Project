@@ -1,0 +1,83 @@
+﻿<EditForm Model="@community" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+
+        <div class="form-group">
+            <label> Image: </label>
+            <div>
+                <InputFile @bind-Value="community.Image" class="form-control" style="width: 500px;" OnChange="HandleFileSelected" />
+                <ValidationMessage For="@(() => community.Image)" />
+            </div>
+        </div>
+        <br />
+
+        <div class="form-group">
+            <label>Name: </label>
+            <div>
+                <InputText @bind-Value="@community.Name" class="form-control" style="width: 500px" />
+                <ValidationMessage For="@(() => community.Name)" />
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <label>Description: </label>
+            <div>
+                <InputTextArea @bind-Value="@community.Description" class="form-control" style="width: 500px; height: 200px;" rows="10" columns="100" />
+                <ValidationMessage For="@(() => community.Description)" />
+            </div>
+        </div>
+
+        <br />
+
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+
+    <br />
+    <br />
+    <BackToList Target="communities" />
+
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Community? community { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private async Task HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        var imageFile = e.File;
+
+        // Check the file size (max 200 KB)
+        var maxFileSize = 1 * 1024 * 1024;
+        if (imageFile.Size > maxFileSize)
+        {
+            // Show an error message
+            return;
+        }
+
+        // Check the file type (only jpg or jpeg)
+        var allowedTypes = new[] { "image/jpg", "image/jpeg" };
+        if (!allowedTypes.Contains(imageFile.ContentType))
+        {
+            // Show an error message
+            return;
+        }
+
+        // Read the file content into a byte array and convert to base64-encoded string
+        using (MemoryStream ms = new MemoryStream())
+        {
+            await imageFile.OpenReadStream(maxFileSize).CopyToAsync(ms);
+            community.Image = Convert.ToBase64String(ms.ToArray());
+        }
+    }
+}

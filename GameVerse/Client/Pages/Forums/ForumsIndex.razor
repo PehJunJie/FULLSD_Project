@@ -1,0 +1,96 @@
+﻿@page "/forums/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+
+<link rel="stylesheet" href="css/header.css"> 
+
+<header>
+<h1>Forums</h1>
+
+<h5>
+    Welcome to GameVerse Forums
+    <br />
+    Have online discussion with other users online!
+</h5>
+
+
+<a href="/forums/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Threads
+</a>
+<br />
+<br />
+
+ </header>
+
+@if (Forums == null)
+{
+    <div class="alert alert-info">Loading Forums...</div>
+}
+
+else
+{
+    <table class="table table-responsive">
+        <thead>
+            <tr>
+                <th>Topic</th>
+                <th>Date Created</th>
+                <th>Date Updated</th>
+               @*  <th>Creator</th> *@
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var forum in Forums)
+            {
+                <tr>
+                    <td>@forum.Topic</td>
+                    <td>@forum.DateCreated</td>
+                    <td>@forum.DateUpdated</td>
+               @*      <td>@forum.Consumer.UserName</td> *@
+                    <td>
+                        <a href="/comments/" class="btn btn-primary">
+                            <span class="oi oi-comment-square"></span>
+                        </a>
+                        <a href="/forums/view/@forum.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/forums/edit/@forum.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(forum.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<Forum>? Forums;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Forums = await _client.GetFromJsonAsync<List<Forum>>($"{Endpoints.ForumsEndpoint}");
+    }
+
+    async Task Delete(int forumId)
+    {
+        if (Forums != null)
+        {
+            var forum = Forums.First(q => q.Id == forumId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {forum.Topic}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.ForumsEndpoint}/{forumId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+}
+

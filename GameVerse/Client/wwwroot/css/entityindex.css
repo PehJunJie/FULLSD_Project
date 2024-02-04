@@ -1,0 +1,45 @@
+﻿.searchbar {
+    /*background-color: #fff;*/
+    color: #333;
+    padding: 20px; /* Increase padding for a bigger header */
+    max-width: 1200px; /* Increase maximum width for a bigger header */
+    width: 100%;
+    margin: 0 auto; /* Center the header horizontally */
+}
+
+.community {
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    margin: 20px auto; /* Increase margin for a bigger community section */
+    padding: 20px; /* Increase padding for a bigger community section */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 1200px; /* Increase maximum width for a bigger community section */
+    width: 100%; /* Ensure it fills its container */
+    overflow: hidden; /* Hide overflowing content */
+    display: flex; /* Use flexbox */
+    align-items: center; /* Vertically center items */
+}
+
+    .community img {
+        max-width: 100%; /* Ensure the image does not exceed the container's width */
+        height: auto; /* Maintain aspect ratio */
+        margin-right: 20px; /* Add space between the image and the text */
+    }
+
+    .community h2 {
+        color: #333;
+        margin-top: 0;
+    }
+
+    .community p {
+        color: #666;
+        margin: 0; /* Remove default margin for paragraphs */
+        margin-bottom: 10px; /* Increase margin bottom for a bigger community section */
+        overflow-wrap: break-word;
+        white-space: normal;
+    }
+
+.text-content {
+    flex: 1; /* Allow text content to grow and take remaining space */
+}

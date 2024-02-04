@@ -1,0 +1,161 @@
+﻿@page "/communities/"
+@using System.Reflection.Metadata;
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+
+@* CSS Override  *@
+<link rel="stylesheet" href="css/header.css">
+<link rel="stylesheet" href="css/entityindex.css">
+
+
+<header>
+
+    <h1>Community</h1>
+
+    <h5>
+        Welcome to GameVerse Community<br />
+        Join people with common interests!
+    </h5>
+
+
+    <a href="/communities/create" class="btn btn-secondary">
+        <span class="oi oi-plus"></span>
+        Create New Communities
+    </a>
+   
+    <br/>
+    <br/>
+   
+
+</header>
+
+<div class="searchbar">
+    <label for="searchInput" class="label-left">Search:</label>
+    <input type="text" @bind="@searchText" id="searchInput" placeholder="Type your search here..." class="form-control" />
+</div>
+
+<br />
+
+@if (Communities == null)
+    {
+    <div class="alert alert-info">Loading Communities...</div>
+    }
+
+    else
+    {
+        @foreach (var community in FilteredCommunities)
+        {
+        <div>
+            <div class="community">
+
+                    @if (community.Image != null)
+                    {
+                    <img src="@($"data:image/jpeg;base64,{community.Image}")" class="community-image" width="140" height="140" />
+                    }
+                    else
+                    {
+                    <img src="noimage.jpeg" width="140" height="140" />
+                    }
+                <div class="text-content">
+                    <h2>@community.Name</h2>
+                    <p>Member Count: @community.MemberCount</p>
+                    <p>@community.Description</p>
+                        @if (!community.IsJoined)
+                        {
+                        <button class="btn btn-primary" @onclick="@(()=>JoinCommunity(community))">
+                            Join
+                        </button>
+                        }
+                        else
+                        {
+                        <button class="btn btn-success" @onclick="@(()=>LeaveCommunity(community))">
+                            Joined
+                        </button>
+                        }
+                    <span style="margin-right: 10px;"></span>
+                    <a href="/communities/view/@community.Id" class="btn btn-primary">
+                        <span class="oi oi-eye"></span>
+                    </a>
+                    <a href="/communities/edit/@community.Id" class="btn btn-warning">
+                        <span class="oi oi-pencil"></span>
+                    </a>
+                    <button class="btn btn-danger" @onclick="@(()=>Delete(community.Id))">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        }
+
+    }
+
+
+@code {
+    private string searchText;
+
+    private List<Community>? Communities;
+   
+    private List<Community> FilteredCommunities
+    {
+        get
+        {
+            if (string.IsNullOrWhiteSpace(searchText))
+            {
+                // If search text is empty, return all communities
+                return Communities;
+            }
+            else
+            {
+                // Filter communities based on search text
+                return Communities.Where(c =>
+                    c.Name.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0 ||
+                    c.Description.IndexOf(searchText, StringComparison.OrdinalIgnoreCase) >= 0
+                ).ToList();
+            }
+        }
+    }
+
+    protected async override Task OnInitializedAsync()
+    {
+        Communities = await _client.GetFromJsonAsync<List<Community>>($"{Endpoints.CommunitiesEndpoint}");
+    }
+
+    async Task Delete(int communityId)
+    {
+        if (Communities != null)
+        {
+            var community = Communities.First(q => q.Id == communityId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {community.Name}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.CommunitiesEndpoint}/{communityId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+
+    async Task JoinCommunity(Community community)
+    {
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to join {community.Name}?");
+        if (confirm)
+        {
+            community.MemberCount++;
+            community.IsJoined = true;
+            await _client.PutAsJsonAsync($"{Endpoints.CommunitiesEndpoint}/{community.Id}", community);
+            await OnInitializedAsync();
+        }
+    }
+
+    async Task LeaveCommunity(Community community)
+    {
+        var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to leave {community.Name}?");
+        if (confirm)
+        {
+            community.MemberCount--;
+            community.IsJoined = false;
+            await _client.PutAsJsonAsync($"{Endpoints.CommunitiesEndpoint}/{community.Id}", community);
+            await OnInitializedAsync();
+        }
+    }
+}

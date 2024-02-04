@@ -1,0 +1,23 @@
+﻿@page "/communities/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<link rel="stylesheet" href="css/header.css">
+
+<header>
+<h3 class="card-title">Create New Community</h3>
+<br />
+ </header>
+
+<CommunityFormComponent ButtonText="Create Community" community="community" OnValidSubmit="@CreateCommunities" />
+
+@code {
+    Community community = new Community();
+
+    private async Task CreateCommunities()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CommunitiesEndpoint, community);
+        _navManager.NavigateTo("/communities/");
+    }
+
+}

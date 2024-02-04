@@ -1,0 +1,95 @@
+﻿@page "/recommendations/"
+@inject HttpClient _client
+@inject IJSRuntime js
+@attribute [Authorize]
+@inject HttpInterceptorService _interceptor
+@implements IDisposable
+
+<h3 class="card-title">
+    Welcome to the Game Recommendation!
+</h3>
+<br />
+
+<a href="/recommendations/create" class="btn btn-secondary">
+    <span class="oi oi-plus"></span>
+    Create New Recommendation
+</a>
+<br />
+<br />
+
+
+
+@if (Recommendations == null)
+{
+    <div class="alert alert-info">Loading Recommendations...</div>
+}
+
+else
+{
+    <table class="table table-responsive" id="#recommendationsTable">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Game Title</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var recommendation in Recommendations)
+            {
+                <tr>
+                    <td>@recommendation.Rank</td>
+                    <td>@recommendation.Game.Title</td>
+                    <td>
+                        <a href="/recommendations/view/@recommendation.Id" class="btn btn-primary">
+                            <span class="oi oi-book"></span>
+                        </a>
+                        <a href="/recommendations/edit/@recommendation.Id" class="btn btn-warning">
+                            <span class="oi oi-pencil"></span>
+                        </a>
+                        <button class="btn btn-danger" @onclick="@(()=>Delete(recommendation.Id))">
+                            <span class="oi oi-delete"></span>
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@code {
+    private List<Recommendation>? Recommendations;
+
+    protected async override Task OnInitializedAsync()
+    {
+        _interceptor.MonitorEvent();
+        Recommendations = await _client.GetFromJsonAsync<List<Recommendation>>($"{Endpoints.RecommendationsEndpoint}");
+    }
+
+    async Task Delete(int recommendationId)
+    {
+        if (Recommendations != null)
+        {
+            var recommendation = Recommendations.First(q => q.Id == recommendationId);
+            var confirm = await js.InvokeAsync<bool>("confirm", $"Do you want to delete {recommendation.Game.Title}?");
+            if (confirm)
+            {
+                await _client.DeleteAsync($"{Endpoints.RecommendationsEndpoint}/{recommendationId}");
+                await OnInitializedAsync();
+            }
+        }
+    }
+
+    protected async override Task OnAfterRenderAsync(bool firstRender)
+    {
+        await js.InvokeVoidAsync("AddDataTable", "#recommendationsTable");
+    }
+
+    public void Dispose()
+    {
+        _interceptor.DisposeEvent();
+        js.InvokeVoidAsync("DataTablesDispose", "#recommendationsTable");
+    }
+}
+

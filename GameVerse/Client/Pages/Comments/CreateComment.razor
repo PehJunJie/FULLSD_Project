@@ -1,0 +1,20 @@
+﻿@page "/comments/create/"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<h3 class="card-title">Create New Comments</h3>
+<hr />
+<br />
+
+<CommentFormComponent ButtonText="Create Comment" comment="comment" OnValidSubmit="@CreateComments" />
+
+@code {
+    Comment comment = new Comment();
+
+    private async Task CreateComments()
+    {
+        await _client.PostAsJsonAsync(Endpoints.CommentsEndpoint, comment);
+        _navManager.NavigateTo("/comments/");
+    }
+
+}

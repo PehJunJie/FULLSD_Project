@@ -12,6 +12,7 @@ namespace GameVerse.Server.IRepository
     {
         Task Save(HttpContext httpContext);
         IGenericRepository<Comment> Comments { get; }
+        IGenericRepository<Forum> Forums { get; }
         IGenericRepository<Community> Communities { get; }
         IGenericRepository<Consumer> Consumers { get; }
         IGenericRepository<Game> Games { get; }

@@ -9,16 +9,14 @@ namespace GameVerse.Shared.Domain
 {
     public class Community : BaseDomainModel
     {
+        public string? Image { get; set; }
         [Required]
-        [StringLength(20, MinimumLength = 10, ErrorMessage = "Name not meet length requirements")]
+        [StringLength(50, MinimumLength = 3, ErrorMessage = "Community Name does not meet length requirements")]
         public string? Name { get; set; }
-
         [Required]
-        [StringLength(100, MinimumLength = 10, ErrorMessage = "Description does not meet length requirements")]
+        [StringLength(500, ErrorMessage = "Description does not meet length requirements")]
         public string? Description { get; set; }
-
-        [Required]
-        [Range(1, int.MaxValue, ErrorMessage = "There must be at least 1 or more members")]
         public int MemberCount { get; set; }
+        public bool IsJoined { get; set; } = false;
     }
 }

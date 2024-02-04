@@ -1,0 +1,29 @@
+﻿@page "/forums/edit/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+
+<link rel="stylesheet" href="css/header.css">
+
+<header>
+<h3> Edit Forum</h3>
+<br>
+</header>
+
+<ForumFormComponent ButtonText="Update" OnValidSubmit="EditForums" forum="forum" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Forum? forum = new Forum();
+
+    protected async override Task OnParametersSetAsync()
+    {
+        forum = await _client.GetFromJsonAsync<Forum>($"{Endpoints.ForumsEndpoint}/{id}");
+    }
+
+    async Task EditForums()
+    {
+        await _client.PutAsJsonAsync($"{Endpoints.ForumsEndpoint}/{id}", forum);
+        _navManager.NavigateTo("/forums/");
+    }
+}

@@ -1,8 +1,10 @@
 ﻿header {
+    /*background-color: #fff;*/
     color: #333;
     padding: 20px; /* Increase padding for a bigger header */
-    text-align: center;
+    text-align: centre;
     max-width: 1200px; /* Increase maximum width for a bigger header */
     width: 100%;
     margin: 0 auto; /* Center the header horizontally */
 }
+

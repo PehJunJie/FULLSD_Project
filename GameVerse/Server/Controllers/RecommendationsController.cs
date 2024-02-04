@@ -26,7 +26,7 @@ namespace GameVerse.Server.Controllers
         [HttpGet]
         public async Task<IActionResult> GetRecommendations()
         {
-            var recommendations = await _unitOfWork.Recommendations.GetAll();
+            var recommendations = await _unitOfWork.Recommendations.GetAll(includes: q => q.Include(x => x.Game));
 
             if (recommendations == null)
             {

@@ -1,0 +1,64 @@
+﻿@inject HttpClient _client
+
+<EditForm Model="@comment" OnValidSubmit="@OnValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <fieldset disabled="@Disabled">
+
+        <div class="form-group">
+            <label>Text: </label>
+            <div>
+                <InputText @bind-Value="@comment.Text" class="form-control" />
+                <ValidationMessage For="@(() => comment.Text)" />
+            </div>
+        </div>
+
+        <br />
+
+        <div class="form-group">
+            <label>Username: </label>
+            <div>
+                <InputSelect @bind-Value="@comment.ConsumerId" class="form-control" >
+                <option value> Select Consumer's Username </option>
+                @if (Consumers != null)
+                {
+                    foreach (var consumer in Consumers)
+                    {
+                        <option value="@consumer.Id">@consumer.UserName</option>
+                    }
+                }
+                </InputSelect>
+                <ValidationMessage For="@(() => comment.ConsumerId)" />
+            </div>
+        </div> 
+
+        <br /> 
+
+    </fieldset>
+
+    @if (!Disabled)
+    {
+        <button type="submit" class="btn btn-success btn-block">
+            @ButtonText
+        </button>
+    }
+
+    <br />
+    <br />
+    <BackToList Target="comments" />
+
+</EditForm>
+
+@code {
+    [Parameter] public bool Disabled { get; set; } = false;
+    [Parameter] public Comment? comment { get; set; }
+    [Parameter] public string ButtonText { get; set; } = "Save";
+    [Parameter] public EventCallback OnValidSubmit { get; set; }
+
+    private IList<Consumer>? Consumers;
+
+    protected async override Task OnInitializedAsync()
+    {
+        Consumers = await _client.GetFromJsonAsync<List<Consumer>>($"{Endpoints.ConsumersEndpoint}");
+    }
+}

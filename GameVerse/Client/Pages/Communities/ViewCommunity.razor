@@ -1,0 +1,22 @@
+﻿@page "/communities/view/{id:int}"
+@inject HttpClient _client
+@inject NavigationManager _navManager
+
+<link rel="stylesheet" href="css/header.css">
+
+<header>
+    <h3> View Community</h3>
+    <p> You are currently viewing @community.Name</p>
+    <br>
+</header>
+
+<CommunityFormComponent community="community" Disabled="true" />
+
+@code {
+    [Parameter] public int id { get; set; }
+    Community? community = new Community();
+    protected async override Task OnParametersSetAsync()
+    {
+        community = await _client.GetFromJsonAsync<Community>($"{Endpoints.CommunitiesEndpoint}/{id}");
+    }
+}

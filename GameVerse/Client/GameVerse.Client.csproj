@@ -14,6 +14,26 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Include="Pages\Comments\CommentFormComponent.razor" />
+    <None Include="Pages\Comments\CommentsIndex.razor" />
+    <None Include="Pages\Comments\CreateComment.razor" />
+    <None Include="Pages\Comments\EditComment.razor" />
+    <None Include="Pages\Comments\ViewComment.razor" />
+    <None Include="Pages\Communities\CommunitiesIndex.razor" />
+    <None Include="Pages\Communities\CommunityFormComponent.razor" />
+    <None Include="Pages\Communities\CreateCommunity.razor" />
+    <None Include="Pages\Communities\EditCommunity.razor" />
+    <None Include="Pages\Communities\ViewCommunity.razor" />
+    <None Include="Pages\Forums\CreateForum.razor" />
+    <None Include="Pages\Forums\EditForum.razor" />
+    <None Include="Pages\Forums\ForumFormComponent.razor" />
+    <None Include="Pages\Forums\ForumsIndex.razor" />
+    <None Include="Pages\Forums\ViewForum.razor" />
+    <None Include="Pages\Recommendations\CreateRecommendation.razor" />
+    <None Include="Pages\Recommendations\EditRecommendation.razor" />
+    <None Include="Pages\Recommendations\RecommendationFormComponent.razor" />
+    <None Include="Pages\Recommendations\RecommendationsIndex.razor" />
+    <None Include="Pages\Recommendations\ViewRecommendation.razor" />
     <None Include="wwwroot\defaultprofile.jpeg" />
     <None Include="wwwroot\marvelspiderman2.jpg" />
     <None Include="wwwroot\noimage.jpeg" />

@@ -18,6 +18,7 @@ namespace GameVerse.Server.Data
         }
 
         public DbSet<Comment> Comments { get; set; }
+        public DbSet<Forum> Forums { get ; set; }   
         public DbSet<Community> Communities { get; set; }
         public DbSet<Game> Games { get; set; }
         public DbSet<Order> Orders { get; set; }
